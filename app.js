@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var sassMiddleware = require('node-sass-middleware');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
@@ -27,6 +28,15 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+// adding sass middleware
+app.use(sassMiddleware({
+    src: path.join(__dirname, 'sass'),
+    dest: path.join(__dirname, 'public', 'stylesheets'),
+    debug: true,
+    outputStyle: 'compressed',
+    prefix:  '/stylesheets',
+    indentedSyntax: true
+}));
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
