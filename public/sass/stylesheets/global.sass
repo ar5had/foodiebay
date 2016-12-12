@@ -1,0 +1,47 @@
+$white         : rgb(254, 254, 254)
+$primary-white : rgba($white, .9)
+$faded-white   : rgba($white, .2)
+$yellow        : rgb(228, 217, 116)
+
+* 
+	color: $primary-white
+	font-family: Source Sans Pro !important
+
+html 
+	font-size: 1px
+
+\::-webkit-input-placeholder
+	color: $primary-white
+
+\:-moz-placeholder
+	color: $primary-white
+
+\::-moz-placeholder
+	color: $primary-white
+
+\:-ms-input-placeholder
+	color: $primary-white
+
+=transition($property, $time)
+	-webkit-transition: $property $time ease-out
+	-moz-transition: $property $time ease-out
+	-o-transition: $property $time ease-out
+	transition: $property $time ease-out
+
+.marB10
+	margin-bottom: 10px
+
+.marB30
+	margin-bottom: 30px
+
+.marB20
+	margin-bottom: 20px
+	
+.marT10
+	margin-top: 10px
+
+.marT30
+	margin-top: 30px
+
+.marT20
+	margin-top: 20px

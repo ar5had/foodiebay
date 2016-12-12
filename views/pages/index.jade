@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  header
+    .container-fluid
+      .row
+        .buttonWrapper.col-xs-12.text-right
+          button Log In
+  main
+    .container.searchWrapper.text-center
+      h2.logo
+        span NYT
+        span Planner
+      h3.heading.text-center.marB30.marT30.
+        Make your night plans and R.S.V.P. ahead of time!
+      form#searchForm.text-center(action="/search", method="post")
+        .searchBarWrapper
+          input.searchBar(type="text" placeholder="Enter your city location...")

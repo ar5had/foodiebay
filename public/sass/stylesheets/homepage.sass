@@ -1,0 +1,77 @@
+@import global
+
+body 
+	background: url('https://raw.githubusercontent.com/arshdkhn1/nightlife-coordination-app/master/public/images/bkd.jpg') no-repeat
+	background-position: center
+
+.row
+	margin-top: 15px
+	
+button
+	background: transparent
+	border: none
+	color: $primary-white
+	border: solid 3px $primary-white
+	text-transform: uppercase
+	padding: 10px 25px
+	background: transparent
+	outline: none
+	+transition(background, 100ms)
+	&:hover
+		background: $faded-white
+
+.searchWrapper
+	margin-top: 50px
+
+h2.logo
+	font-family: Permanent Marker !important
+	font-size: 32px
+	margin: auto
+	background: $faded-white
+	border-radius: 50%
+	width: 200px
+	height: 200px
+	display: inline-block
+	padding-top: 60px
+	border: solid 5px 
+	+transition(300ms, transform)
+	span
+		display: block
+		font-family: inherit !important
+		letter-spacing: 4px
+		transform: rotate(-15deg)
+		line-height: 1
+	&:hover
+		transform: rotate(360deg)
+
+h3.heading
+	font-weight: 200
+	font-size: 22px
+
+.searchBarWrapper
+	max-width: 600px
+	margin: auto
+	position: relative
+
+	.searchBar
+		width: 100%
+		margin: auto
+		border: solid 4px $primary-white
+		padding: 10px 10px 10px 55px
+		color: $primary-white
+		background: $faded-white
+		outline: none
+		+transition(100ms,background)
+		&:focus
+			background: transparent
+	
+	&:before 
+		font-family: Glyphicons Halflings
+		content: '\e062'
+		color: $primary-white
+		position: absolute
+		top: 15px
+		left: 20px
+		border-right: solid 2px $primary-white
+		padding-right: 11px
+		line-height: 1.2
