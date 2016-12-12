@@ -30,11 +30,10 @@ app.set('view engine', 'jade');
 
 // adding sass middleware
 app.use(sassMiddleware({
-    src: path.join(__dirname, 'sass'),
-    dest: path.join(__dirname, 'public', 'stylesheets'),
+    src: path.join(__dirname, 'public', 'sass'),
+    dest: path.join(__dirname, 'public'),
     debug: true,
     outputStyle: 'compressed',
-    prefix:  '/stylesheets',
     indentedSyntax: true
 }));
 
