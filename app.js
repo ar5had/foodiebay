@@ -12,17 +12,17 @@ var bodyParser = require('body-parser');
 // file that handles all the routes
 var routes = require('./routes/main');
 
-//require('./config/passport')(passport);
-
 // loads all custom environments variables
 if (process.env.NODE_ENV !== "production")
   require('dotenv').load();
 
+require('./config/passport')(passport);
+
 var app = express();
 
 // connect database
-// mongoose.connect(process.env.MONGO_URI);
-// mongoose.Promise = global.Promise;
+mongoose.connect(process.env.MONGO_URI);
+mongoose.Promise = global.Promise;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -46,17 +46,16 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use(session({
-//   secret: process.env.SESSION_SECRET,
-//   resave: false,
-//   saveUninitialized: true
-// }));
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true
+}));
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
-// routes(app, passport);
-routes(app);
+routes(app, passport);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -73,7 +72,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('./pages/error');
 });
 
 module.exports = app;

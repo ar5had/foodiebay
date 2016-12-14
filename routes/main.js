@@ -1,7 +1,8 @@
 'use strict';
 var index = require("./index.js");
 var users = require("./users.js");
-//var auth = require("./auth.js")
+var auth = require("./auth.js");
+var logout = require("./logout.js")
 
 module.exports = function(app, passport) {
 
@@ -17,8 +18,9 @@ module.exports = function(app, passport) {
             res.redirect('/login');
         }
     }
+    
+    auth(app, passport);
 
     index(app);
-    users(app);
-    //auth(app);
+    logout(app);
 };
