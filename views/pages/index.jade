@@ -5,7 +5,7 @@ block content
     .container-fluid
       .row
         .buttonWrapper.col-xs-12.text-right
-          if user
+          if (user == undefined)
             a(href='/auth/twitter')
               button
                 img(src='https://raw.githubusercontent.com/arshdkhn1/nightlife-coordination-app/master/public/images/twitter.png')
@@ -13,7 +13,9 @@ block content
           else
             a(href='/logout')
               button
-                user.name  Log Out
+                =user.name.split(" ")[0]
+                span.divider
+                | Log Out
   main
     .container
       .searchWrapper.text-center
