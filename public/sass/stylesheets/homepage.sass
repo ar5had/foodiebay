@@ -39,16 +39,18 @@ h2.logo
 	display: inline-block
 	padding-top: 60px
 	border: solid 5px 
-	+transition(300ms, transform)
+	+transition(all, 300ms)
 	span
 		display: block
 		font-family: inherit !important
 		letter-spacing: 4px
+		color: inherit
 		transform: rotate(-15deg)
 		line-height: 1
 		cursor: default
 	&:hover
 		transform: rotate(360deg)
+		color: $yellow
 
 h3.heading
 	font-weight: 200

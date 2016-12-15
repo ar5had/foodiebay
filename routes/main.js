@@ -1,6 +1,5 @@
 'use strict';
 var index = require("./index.js");
-var users = require("./users.js");
 var auth = require("./auth.js");
 var logout = require("./logout.js")
 
