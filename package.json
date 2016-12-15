@@ -19,6 +19,7 @@
     "node-sass-middleware": "^0.10.0",
     "passport": "^0.3.2",
     "passport-twitter": "^1.0.4",
+    "request": "^2.79.0",
     "serve-favicon": "~2.3.0"
   }
 }

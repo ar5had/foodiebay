@@ -27,6 +27,13 @@ html
 	-o-transition: $property $time ease-out
 	transition: $property $time ease-out
 
+=mtransition($property, $property1, $time)
+	-webkit-transition: $property $time ease-out, $property1 $time ease-out
+	-moz-transition: $property $time ease-out, $property1 $time ease-out
+	-o-transition: $property $time ease-out, $property1 $time ease-out
+	transition: $property $time ease-out, $property1 $time ease-out
+
+
 .marB10
 	margin-bottom: 10px
 
@@ -46,6 +53,9 @@ html
 	margin-top: 20px
 	
 .divider
-	margin: auto 5px
+	margin: auto 8px
 	border-right: 2px solid $primary-white
 	font-size: 10px
+	
+.container
+	max-width: 800px
