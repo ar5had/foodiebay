@@ -1,13 +1,21 @@
+h3.resultInfoHeading Here are top 20 restaurants of your locality.
+
 for result in results.businesses	
 	.resultsWrapper.row
-		.imgWrapper.col-xs-3
+		.imgWrapper.col-sm-3.col-xs-12.text-center
 			img(src='#{result.image_url}' class="restaurantPic")
-		.infoWrapper.col-xs-9.text-left
-			.col-xs-12
+		.infoWrapper.col-sm-9.text-left.col-xs-12
+			.col-sm-12
 				.nameWrapper
 					h3	#{result.name}
+					img(src='#{result.rating_img_url}', class="ratingImg")
 				.otherInfoWrapper
-					p	#{result.snippet_text}
+					p.location
+						strong Location:
+						|	#{result.location.display_address}
+					p.review
+						strong Review:
+						|	#{result.snippet_text}
 				.peopleGoingWrapper
 					p. 
 						10 people going
