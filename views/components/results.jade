@@ -7,7 +7,8 @@ for result in results.businesses
 		.infoWrapper.col-sm-9.text-left.col-xs-12
 			.col-sm-12
 				.nameWrapper
-					h3	#{result.name}
+					h3.restaurantName
+						#{result.name}
 					img(src='#{result.rating_img_url}', class="ratingImg")
 				.otherInfoWrapper
 					p.location

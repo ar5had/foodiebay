@@ -45,6 +45,7 @@ module.exports = function(passport) {
                         // if there is no user, create them
                         var newUser = new User();
                         // set all of the user data that we need
+                        newUser.userLocation = null;
                         newUser.twitter.id = profile.id;
                         newUser.twitter.token = token;
                         newUser.twitter.username = profile.username;

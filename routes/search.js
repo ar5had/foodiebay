@@ -1,8 +1,22 @@
 var Yelp = require("yelp");
+var users = require("../models/users.js");
+
+var isUserLogged = function(req, res, next) {
+  if (req.isAuthenticated()) {
+    users.findOneAndUpdate({_id: req.user._id}, {$set: {userLocation: req.body.searchBar}})
+      .exec(function(err) {
+        if (err) 
+          return next(err);
+        else
+          next();
+        
+      });
+  }
+};
 
 module.exports = function(app) {
     app.route('/search')
-    		.post(function (req, res, next) {
+    		.post(isUserLogged,function (req, res, next) {
     		    
     		    var location = req.body.searchBar;
     		    

@@ -6,6 +6,7 @@ var Schema = mongoose.Schema;
 var User = new Schema({
     name: String,
     dp: String,
+    userLocation: String,
     twitter: {
         id: String,
         token: String,
