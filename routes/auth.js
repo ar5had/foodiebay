@@ -11,6 +11,7 @@ module.exports = function(app, passport) {
         function(req, res) {
         	res.redirect(req.session.returnTo || "/");
         	delete req.session.returnTo;
+        	req.session.save();
         });
 
 };

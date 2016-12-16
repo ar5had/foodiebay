@@ -1,7 +1,8 @@
 'use strict';
 var index = require("./index.js");
 var auth = require("./auth.js");
-var logout = require("./logout.js")
+var logout = require("./logout.js");
+var search = require("./search.js");
 
 module.exports = function(app, passport) {
 
@@ -22,4 +23,5 @@ module.exports = function(app, passport) {
 
     index(app);
     logout(app);
+    search(app);
 };

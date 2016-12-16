@@ -24,6 +24,10 @@ block content
           span Planner
         h3.heading.text-center.marB30.marT30.
           Make your night plans and R.S.V.P. ahead of time!
-        form#searchForm.text-center(action="/search", method="post")
+        form#searchForm.text-center(action="/search", method="post", name="searchForm", autocomplete="off")
           .searchBarWrapper
-            input.searchBar(type="text" placeholder="Enter your city location..." required="required")
+            input(type="text", placeholder="Enter your city location...", required="required", name="searchBar").searchBar#searchBar
+      if (results !== undefined)
+        include ../components/results
+          
+      

@@ -1,15 +1,16 @@
-.resultsWrapper.row
-	.result
+for result in results.businesses	
+	.resultsWrapper.row
 		.imgWrapper.col-xs-3
-		.infoWrapper.col-xs-9
-			.nameWrapper
-				h3 Midnight Maddness
-			.otherInfoWrapper
-				p.
-					This is one the best restaurant of New Delhi. Nice environment, nice food and nice music.
-		.peopleGoingWrapper.col-xs-9
-			p. 
-				10 people going
-		.controlsWrapper.col-xs-9
-			a
-				button Not Going
+			img(src='#{result.image_url}' class="restaurantPic")
+		.infoWrapper.col-xs-9.text-left
+			.col-xs-12
+				.nameWrapper
+					h3	#{result.name}
+				.otherInfoWrapper
+					p	#{result.snippet_text}
+				.peopleGoingWrapper
+					p. 
+						10 people going
+				.controlsWrapper
+					a
+						button Not Going
