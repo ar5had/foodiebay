@@ -17,15 +17,6 @@ block content
                 span.divider
                 | Log Out
   main
-    .container
-      .searchWrapper.text-center
-        h2.logo
-          span NYTLYF
-          span Planner
-        h3.heading.text-center.marB30.marT30.
-          Make your night plans and R.S.V.P. ahead of time!
-        form#searchForm.text-center(action="/results", method="post", name="searchForm", autocomplete="off")
-          .searchBarWrapper
-            input(type="text", placeholder="Enter your city location...", required="required", name="searchBar").searchBar#searchBar
+    include ../components/results
           
       

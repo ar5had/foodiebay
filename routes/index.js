@@ -1,5 +1,3 @@
-var Yelp = require("yelp");
-
 var checkIfUserLogged = function(req, res, next) {
   if (req.isAuthenticated() && !req.session.localresults) {
     console.log(req.user);
@@ -33,14 +31,11 @@ var checkIfUserLogged = function(req, res, next) {
 };
 
 module.exports = function(app) {
-    app.get("/", checkIfUserLogged, function(req, res, next) {
+    app.get("/", function(req, res, next) {
         console.log("req.ses.localres",(req.session.localresults));
         res.render('./pages/index', {
             title: "Nytlyf Planner",
-            user: req.user,
-            results: req.session.localresults 
+            user: req.user 
         });
-        delete req.session.localresults;
-        req.session.save();
     });
 };
