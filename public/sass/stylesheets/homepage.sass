@@ -1,104 +1,177 @@
 @import global
 
-body 
-	background: #333
 
-.row
-	margin-top: 15px
+body
+	min-height: 500px
+	z-index: 2
+	&:before
+		content: ' '
+		display: block
+		position: absolute
+		left: 0
+		top: 0
+		width: 100%
+		min-height: 500px
+		height: 100%
+		z-index: 0
+		opacity: .4
+		background: #333
+
+	&:after
+		content: ' '
+		display: block
+		position: absolute
+		left: 0
+		top: 0
+		width: 100%
+		min-height: 500px
+		height: 100%
+		z-index: -1
+		opacity: .8
+		background: url('https://raw.githubusercontent.com/arshdkhn1/nightlife-coordination-app/master/public/images/restLow.jpg') no-repeat center center fixed
+		+bkdSize(cover)
+	
+
+header
+	position: fixed
+	width: 100%
+	z-index: 2
+	padding: 15px 0
+	background-color: #159957
+	background-image: linear-gradient(130deg, #159957, #155799)
+
+a 
+	text-decoration: none !important
+	&:hover, &:active
+		text-decoration: none !important
+
+h3.logo
+	color: $white
+	font-weight: 700
+	font-size: 28px
+	margin: 5px
+	display: inline-block
+
+.logoWrapper, .buttonWrapper
+	padding: 0
 	
 button
 	background: transparent
-	border: none
-	color: $primary-white
-	border: solid 3px 
-	text-transform: uppercase
-	padding: 10px 25px
-	background: transparent
+	border: solid 3px rgba($white, .3)
+	color: $white
+	font-weight: 600
+	+borderRadius(4px)
+	padding: 10px 15px
 	outline: none
-	+mtransition(color, background, 100ms)
-	img
-		width: 12px
-		margin-right: 5px
-		padding-bottom: 2px
+	+transition(all, 100ms)
 	&:hover
-		background: $faded-white
-	
+		border-color: rgba($white, .7)
+		background: rgba($white, .1)
+
 .searchWrapper
-	margin-top: 50px
+	position: absolute
+	top: 50%
+	left: 50%
+	width: 100%
+	max-width: 700px
+	transform: translate(-50%, -50%)
+
+// fix for mobile screen in landscape mode
+@media screen and (max-height: 400px)
+	.searchWrapper
+		top: 220px
+		transform: translate(-50%, -50%)
 
 h2.logo
-	font-family: Permanent Marker !important
-	font-size: 32px
-	color: $primary-white
-	margin: auto
-	background: $faded-white
-	border-radius: 50%
-	width: 200px
-	height: 200px
-	display: inline-block
-	padding-top: 60px
-	border: solid 5px 
-	+mtransition(transform, color, 300ms) 
-	span
-		display: block
-		font-family: inherit !important
-		letter-spacing: 4px
-		color: inherit
-		transform: rotate(-15deg)
-		line-height: 1
-		cursor: default
-	&:hover
-		transform: rotate(360deg)
-		color: $yellow
+	font-weight: 700
+	font-size: 45px
 
 h3.heading
+	margin: 30px auto
 	font-weight: 200
-	font-size: 22px
-	color: $primary-white
+	font-weight: 500
+	font-size: 18px
+	max-width: 600px
+	line-height: 1.3
 
 .searchBarWrapper
+	max-width: 700px
 	margin: auto
 	position: relative
 
 	.searchBar
 		width: 100%
 		margin: auto
-		border: solid 4px $primary-white
-		padding: 10px 10px 10px 55px
-		color: $primary-white
-		background: $faded-white
+		border: none
+		+borderRadius(4px)
+		font-size: 15px
+		padding: 14px 45px 14px 45px
+		color: $black
+		background: $white
 		outline: none
 		+transition(100ms,background)
-		&:focus
-			background: transparent
 	
 	&:before 
 		font-family: Glyphicons Halflings
 		content: '\e062'
-		color: $primary-white
+		color: $grey
 		position: absolute
 		top: 15px
-		left: 20px
-		border-right: solid 2px $primary-white
+		left: 15px
 		padding-right: 11px
-		line-height: 1.2
-		
+		line-height: 1.3
+	
+	.locateMe
+		i
+			color: $grey
+			font-size: 18px
+		padding: 5px
+		+borderRadius(4px)
+		position: absolute
+		top: 50%
+		right: 10px
+		line-height: 1
+		transform: translateY(-50%)
+		+transition(100ms,background)
+		cursor: pointer
+		&:hover, &:active
+			i
+				color: $dark-grey
+			background: #efefef
 
-.resultsWrapper
-	margin: 70px auto
-	color: $primary-white
+button.login
+	img
+		width: 12px
+		margin-right: 5px
+		padding-bottom: 2px
 
-.restaurantPic
-	background: rgba($primary-white, .2)
-	border: solid 4px 
-	border-radius: 5px
+.tooltipLocation
 	
-.imgWrapper, .infoWrapper 
-	padding: 0
+	&:hover
+		.main, .tail
+			visibility: visible
+	position: relative
 	
-.resultInfoHeading
-	color: $primary-white
-	margin-top: 20px
+	.main
+		+transition(100ms, all)
+		visibility: hidden
+		position: absolute
+		top: -38px
+		right: 13px
+		background: #5c89b7
+		color: $white
+		white-space: nowrap
+		padding: 6px
 	
-.restaurantName
-	font-family: Permanent Marker !important
+	.tail
+		+transition(100ms, all)
+		visibility: hidden
+		position: absolute
+		border-color: #5c89b7 transparent transparent 
+		border-style: solid
+		border-width: 10px 0 0 10px
+		height: 0
+		top: -13px
+		right: 13px
+		width: 0
+		z-index: 12

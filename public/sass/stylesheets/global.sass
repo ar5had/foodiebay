@@ -1,25 +1,8 @@
 $white         : rgb(254, 254, 254)
-$primary-white : rgba($white, .9)
 $faded-white   : rgba($white, .2)
-$yellow        : rgb(228, 217, 116)
-
-* 
-	font-family: Source Sans Pro !important
-
-html 
-	font-size: 1px
-
-\::-webkit-input-placeholder
-	color: $primary-white
-
-\:-moz-placeholder
-	color: $primary-white
-
-\::-moz-placeholder
-	color: $primary-white
-
-\:-ms-input-placeholder
-	color: $primary-white
+$black         : #333
+$dark-grey     : #666
+$grey          : #888
 
 =transition($property, $time)
 	-webkit-transition: $property $time ease-out
@@ -27,11 +10,36 @@ html
 	-o-transition: $property $time ease-out
 	transition: $property $time ease-out
 
-=mtransition($property, $property1, $time)
-	-webkit-transition: $property $time ease-out, $property1 $time ease-out
-	-moz-transition: $property $time ease-out, $property1 $time ease-out
-	-o-transition: $property $time ease-out, $property1 $time ease-out
-	transition: $property $time ease-out, $property1 $time ease-out
+=bkdSize($val)
+	-ms-background-size: $val
+	-o-background-size: $val
+	-moz-background-size: $val
+	-webkit-background-size: $val
+	background-size: $val
+
+=borderRadius($rad)
+	-webkit-border-radius: $rad
+	-moz-border-radius: $rad
+	border-radius: $rad
+
+* 
+	color: $white
+	font-family: Source Sans Pro, Helvetica Neue, Helvetica, sans-serif
+
+html 
+	font-size: 1px
+
+\::-webkit-input-placeholder
+	color: $grey
+
+\:-moz-placeholder
+	color: $grey
+
+\::-moz-placeholder
+	color: $grey
+
+\:-ms-input-placeholder
+	color: $grey
 
 
 .marB10
@@ -54,7 +62,7 @@ html
 	
 .divider
 	margin: auto 8px
-	border-right: 2px solid $primary-white
+	border-right: 2px solid $white
 	font-size: 10px
 	
 .container
