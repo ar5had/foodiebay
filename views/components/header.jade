@@ -1,0 +1,19 @@
+header
+    .container-fluid
+      .container
+        .row
+          .logoWrapper.col-xs-6.text-left
+              a(href="#")
+                h3.logo foodiebay
+          .buttonWrapper.col-xs-6.text-right
+            if (user == undefined)
+              a(href='/auth/twitter')
+                button.login
+                  img(src='https://raw.githubusercontent.com/arshdkhn1/nightlife-coordination-app/master/public/images/twitter.png')
+                  | Log In
+            else
+              a(href='/logout')
+                button
+                  =user.name.split(" ")[0]
+                  span.divider
+                  | Log Out   

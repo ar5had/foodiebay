@@ -30,20 +30,6 @@ body
 		opacity: .8
 		background: url('https://raw.githubusercontent.com/arshdkhn1/nightlife-coordination-app/master/public/images/restLow.jpg') no-repeat center center fixed
 		+bkdSize(cover)
-	
-
-header
-	position: fixed
-	width: 100%
-	z-index: 2
-	padding: 15px 0
-	background-color: #159957
-	background-image: linear-gradient(130deg, #159957, #155799)
-
-a 
-	text-decoration: none !important
-	&:hover, &:active
-		text-decoration: none !important
 
 h3.logo
 	color: $white
@@ -121,32 +107,40 @@ h3.heading
 		padding-right: 11px
 		line-height: 1.3
 	
-	.locateMe
-		i
-			color: $grey
-			font-size: 18px
-		padding: 5px
-		+borderRadius(4px)
-		position: absolute
-		top: 50%
-		right: 10px
-		line-height: 1
-		transform: translateY(-50%)
-		+transition(100ms,background)
-		cursor: pointer
-		&:hover, &:active
-			i
-				color: $dark-grey
-			background: #efefef
-
 button.login
 	img
 		width: 12px
 		margin-right: 5px
 		padding-bottom: 2px
 
-.tooltipLocation
-	
+.formsWrapper		
+	position: relative
+		
+#locateMeForm
+	display: inline-block
+	position: absolute
+	top: 50%
+	right: 10px
+	line-height: 1
+	transform: translateY(-50%)
+
+.locateMe
+	i
+		color: $grey
+		font-size: 18px
+		vertical-align: sub
+	padding: 8px 6px 6px 6px
+	+borderRadius(4px)
+	line-height: 1
+	+transition(100ms,background)
+	cursor: pointer
+	&:hover, &:active
+		i
+			color: $dark-grey
+		background: #efefef
+
+
+.myTooltip
 	&:hover
 		.main, .tail
 			visibility: visible

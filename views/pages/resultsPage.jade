@@ -1,21 +1,7 @@
 extends ../layouts/layout
 
 block content
-  header
-    .container-fluid
-      .row
-        .buttonWrapper.col-xs-12.text-right
-          if (user == undefined)
-            a(href='/auth/twitter')
-              button
-                img(src='https://raw.githubusercontent.com/arshdkhn1/nightlife-coordination-app/master/public/images/twitter.png')
-                | Log In
-          else
-            a(href='/logout')
-              button
-                =user.name.split(" ")[0]
-                span.divider
-                | Log Out
+  include ../components/header
   main
     include ../components/results
           

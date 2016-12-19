@@ -35,7 +35,7 @@ module.exports = function(app) {
         console.log("req.ses.localres",(req.session.localresults));
         res.render('./pages/index', {
             title: "Nytlyf Planner",
-            user: req.user 
+            user: req.user
         });
     });
 };

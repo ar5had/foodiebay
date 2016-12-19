@@ -1,26 +1,8 @@
 extends ../layouts/layout
 
 block content
-                
-  header
-    .container-fluid
-      .container
-        .row
-          .logoWrapper.col-xs-6.text-left
-            a(href="#")
-              h3.logo foodiebay
-          .buttonWrapper.col-xs-6.text-right
-            if (user == undefined)
-              a(href='/auth/twitter')
-                button.login
-                  img(src='https://raw.githubusercontent.com/arshdkhn1/nightlife-coordination-app/master/public/images/twitter.png')
-                  | Log In
-            else
-              a(href='/logout')
-                button
-                  =user.name.split(" ")[0]
-                  span.divider
-                  | Log Out              
+  
+  include ../components/header              
   
   main
     .container
@@ -29,10 +11,15 @@ block content
           foodiebay
         h3.heading.text-center.
           Find the best meals in any city in the world. Select the most hoppin' restaurants and rsvp ahead of time.
-        form#searchForm.text-center(action="/results", method="post", name="searchForm", autocomplete="off")
-          .searchBarWrapper
-            input(type="text", placeholder="Enter your location...", required="required", name="searchBar").searchBar#searchBar
-            a(href="#", data-toggle="tooltip", title="Locate Me").locateMe.tooltipLocation
-              i.material-icons  gps_fixed
-              .main Locate Me
-              .tail
+        .formsWrapper  
+          form#searchForm.text-center(action="/results", method="post", name="searchForm", autocomplete="off")
+            .searchBarWrapper
+              input(type="text", placeholder="Enter your location...", required="required", name="searchBar").searchBar#searchBar
+              
+          form(method="post", action="/results?loc=true" name="locateMeForm")#locateMeForm
+                a(data-toggle="tooltip", title="Locate Me").locateMe.myTooltip
+                  i.material-icons  gps_fixed
+                  .main Locate Me
+                  .tail    
+  
+  script(src="/javascripts/homepage.js")

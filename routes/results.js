@@ -1,6 +1,7 @@
 var users = require("../models/users.js");
 var request = require("request");
 var querystring = require("querystring");
+var satelize = require("satelize");
 
 var isUserLogged = function(req, res, next) {
   if (req.isAuthenticated()) {
@@ -18,28 +19,67 @@ var isUserLogged = function(req, res, next) {
 };
 
 var getResults = function (req, res, next) {
-    		  
-  var location = req.body.searchBar;
-  var params = {
-      "near": location,
-      "query": "restaurant"
-  };
+  
   var credentials = {
     'v': '20140806',
     'client_id': process.env.CLIENT_ID,
     'client_secret': process.env.CLIENT_SECRET
   };
-  var urlString = "https://api.foursquare.com/v2/venues/search?" + querystring.stringify(params) + '&' + querystring.stringify(credentials);
   
-  request(urlString, function (error, response, results) {
-    if (!error && response.statusCode == 200) {
-      req.ids = JSON.parse(results).response.venues.map(function(result) { return "/venues/" + result.id });
-      req.results = [];
-      next();
-    } else {
-      next(error);
-    }
-  });
+  var urlString = "https://api.foursquare.com/v2/venues/search?";
+  
+  var params;
+  
+  if(req.query.loc === "true") {
+    var ll, ip = req.header('x-forwarded-for') || req.connection.remoteAddress; 
+    console.log("ip is", ip);
+    var url = 'http://freegeoip.net/json/' + ip;
+    
+    request(url, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+          var res = JSON.parse(body);
+          ll = res.latitude + "," + res.longitude;
+          params = {
+            'll' : ll.toString(),
+            'query': "restaurant"
+          };
+          urlString += querystring.stringify(params) + '&' + querystring.stringify(credentials);
+      
+          request(urlString, function (error, response, results) {
+            if (!error && response.statusCode == 200) {
+              req.ids = JSON.parse(results).response.venues.map(function(result) { return "/venues/" + result.id });
+              req.results = [];
+              next();
+            } else {
+              next(error);
+            }
+          });
+          
+      } else {
+        next(error);
+      }
+    });
+    
+  } else { 		  
+    var location = req.body.searchBar;
+    params = {
+        'near': location,
+        'query': "restaurant"
+    };
+    
+    urlString += querystring.stringify(params) + '&' + querystring.stringify(credentials);
+    
+    request(urlString, function (error, response, results) {
+      if (!error && response.statusCode == 200) {
+        req.ids = JSON.parse(results).response.venues.map(function(result) { return "/venues/" + result.id });
+        req.results = [];
+        next();
+      } else {
+        next(error);
+      }
+    });
+  }
+  
 };
 
 var filterData = function(req, res, next) {
