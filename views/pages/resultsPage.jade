@@ -3,6 +3,26 @@ extends ../layouts/layout
 block content
   include ../components/header
   main
-    include ../components/results
-          
+  	.container
+		h3.resultsInfoHeading 
+			| Food suggestions near 
+			strong New Delhi
+		for book in [0]
+			.resultsWrapper.row
+				.result
+					.imgWrapper
+						img(src="http://placehold.it/100x100")
+					.infoWrapper
+						.nameWrapper
+							h3 Midnight Maddness
+							p.infoLines.marT5
+								span.category.
+									Indian • ₹₹
+							p.infoLines
+								span.location.
+									Chandini Chowk, New Delhi- 11024
+					.otherWrapper
+						
+						
+					        
       
