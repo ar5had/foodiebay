@@ -34,7 +34,7 @@ module.exports = function(app) {
     app.get("/", function(req, res, next) {
         console.log("req.ses.localres",(req.session.localresults));
         res.render('./pages/index', {
-            title: "Nytlyf Planner",
+            title: "Home - foodiebay",
             user: req.user
         });
     });

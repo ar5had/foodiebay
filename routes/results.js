@@ -37,9 +37,9 @@ var getResults = function (req, res, next) {
     
     request(url, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-          var response = JSON.parse(body);
-          ll = response.latitude + "," + response.longitude;
-          req.location = response.city + ", " + response.region_name;
+          var resp = JSON.parse(body);
+          ll = resp.latitude + "," + resp.longitude;
+          req.location = resp.city + ", " + resp.region_name;
           params = {
             'll' : ll.toString(),
             'query': "restaurant"
@@ -101,21 +101,41 @@ var filterData = function(req, res, next) {
               obj.reqLocation = req.location;
               obj.name = venue.name;
               obj.rating = venue.rating && venue.rating;
-              obj.ratingColor = venue.rating && venue.ratingColor;
+              obj.ratingColor = ("#" + venue.ratingColor);
               obj.category = venue.categories && (venue.categories.map(function(c) {return c.shortName})).join(", ");
               obj.phoneNo = venue.contact.formattedPhone;
-              obj.address = venue.location.address  + ", " + venue.location.city;
+              obj.address = venue.location.address;
+              obj.city = venue.location.city;
               obj.status = venue.hereNow && venue.hereNow.summary;
               obj.tier = venue.price && venue.price.tier;
               obj.currency = venue.price && venue.price.currency;
               obj.imgUrl = venue.photos.groups[0] && (venue.photos.groups[0].items[0].prefix + '300x300' + venue.photos.groups[0].items[0].suffix);
               obj.imgUrl = obj.imgUrl ? obj.imgUrl: (venue.bestPhoto && venue.bestPhoto.prefix + '300x300' + venue.bestPhoto.suffix);
               obj.comment =  venue.tips.groups[0].items[0] && venue.tips.groups[0].items[0].text;
-              obj.commentator = { 'name': venue.tips.groups[0] && (venue.tips.groups[0].items[0].user.firstName + " " + (venue.tips.groups[0].items[0].user.lastName? venue.tips.groups[0].items[0].user.lastName: "")),
-                'imgUrl': obj.commentator = venue.tips.groups[0] && (venue.tips.groups[0].items[0].user.photo.prefix + '70x70' + venue.tips.groups[0].items[0].user.photo.suffix)
+              obj.commentator = { 'name': venue.tips.groups[0].items[0] && ( (venue.tips.groups[0].items[0].user && venue.tips.groups[0].items[0].user.firstName) + " " + (venue.tips.groups[0].items[0].user.lastName? venue.tips.groups[0].items[0].user.lastName: "")),
+                'imgUrl': obj.commentator = venue.tips.groups[0].items[0] && ( (venue.tips.groups[0].items[0].user && (venue.tips.groups[0].items[0].user.photo.prefix + '70x70' + venue.tips.groups[0].items[0].user.photo.suffix) ) )
               };
               obj.likesCount = venue.likes && venue.likes.count;
               obj.url = venue.shortUrl;
+              
+              var str = obj.name.split(" ").map(function(elem) {return elem[0]}).join("");
+              // setting falsy values to undefined
+              obj.name = obj.name ? obj.name : undefined;
+              obj.rating = obj.rating ? obj.rating : undefined;
+              obj.ratingColor = obj.ratingColor ? obj.ratingColor : undefined;
+              obj.category = obj.category ? obj.category : undefined;
+              obj.phoneNo = obj.phoneNo || undefined;
+              obj.address = obj.address || undefined;
+              obj.city = obj.city || undefined;
+              obj.status = obj.status || undefined;
+              obj.tier = obj.tier || undefined;
+              obj.currency = obj.currency || undefined;
+              obj.imgUrl = obj.imgUrl || "http://placehold.it/100?text="+ str;
+              obj.comment =  obj.comment || undefined;
+              obj.commentator = obj.commentator || undefined;
+              obj.likesCount = obj.likesCount || undefined;
+              obj.url = obj.url || undefined;
+              
               req.results.push(obj);
           });
           
@@ -130,7 +150,7 @@ var filterData = function(req, res, next) {
 
 var showResults = function(req, res) {
   res.render('./pages/resultsPage', {
-            title: "Nytlyf Planner",
+            title: "Results for " + req.location + " - foodiebay",
             user: req.user,
             results: req.results
         });

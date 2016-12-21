@@ -1,3 +1,5 @@
+
+
 $white         : rgb(254, 254, 254)
 $faded-white   : rgba($white, .2)
 $green         : #159957
@@ -8,11 +10,11 @@ $border-color  : #c7cdcf
 $dark-grey     : #666
 $grey          : #888
 
-=transition($property, $time)
-	-webkit-transition: $property $time ease-out 100ms
-	-moz-transition: $property $time ease-out 100ms
-	-o-transition: $property $time ease-out 100ms
-	transition: $property $time ease-out 100ms
+=transition($property, $time, $delay)
+	-webkit-transition: $property $time ease-out $delay
+	-moz-transition: $property $time ease-out $delay
+	-o-transition: $property $time ease-out $delay
+	transition: $property $time ease-out $delay
 
 =bkdSize($val)
 	-ms-background-size: $val
@@ -25,6 +27,21 @@ $grey          : #888
 	-webkit-border-radius: $rad
 	-moz-border-radius: $rad
 	border-radius: $rad
+
+body
+	overflow: hidden
+	
+#hideAll
+    position: fixed
+    opacity: 1
+    left: 0px 
+    right: 0px 
+    top: 0px
+    bottom: 0px 
+    background-color: #fefefe
+    z-index: 123
+    +transition(opacity, 250ms, 0ms)
+	
 
 * 
 	font-family: Source Sans Pro, Helvetica Neue, Helvetica, sans-serif
@@ -44,6 +61,15 @@ html
 
 	&:-ms-input-placeholder
 		color: $color
+		
+.divider
+	margin: auto 8px
+	border-right: 2px solid $white
+	font-size: 10px
+	
+.container
+	max-width: 800px
+	
 
 header
 	position: fixed
@@ -98,7 +124,7 @@ button
 	+borderRadius(4px)
 	padding: 8px 15px
 	outline: none
-	+transition(all, 100ms)
+	+transition(background, 100ms, 0ms)
 	&:hover
 		border-color: rgba($white, .7)
 		background: rgba($white, .1)
@@ -122,7 +148,7 @@ button
 	padding: 8px 6px 6px 6px
 	+borderRadius(4px)
 	line-height: 1
-	+transition(100ms,background)
+	+transition(100ms,background, 0ms)
 	cursor: pointer
 	&:hover, &:active
 		i
@@ -130,14 +156,10 @@ button
 		background: #efefef
 	
 .myTooltip
-	&:hover
-		.main, .tail
-			visibility: visible
 	position: relative
-	
 	.main
-		+transition(100ms, all)
 		visibility: hidden
+		+transition(100ms, all, 0ms)
 		position: absolute
 		
 		bottom: -38px
@@ -150,8 +172,8 @@ button
 		font-size: 13px
 	
 	.tail
-		+transition(100ms, all)
 		visibility: hidden
+		+transition(100ms, all, 0ms)
 		position: absolute
 		border-color: transparent transparent #5c89b7 transparent
 		border-style: solid
@@ -163,6 +185,11 @@ button
 		right: 13px
 		width: 0
 		z-index: 12	
+	
+	&:hover
+		.main, .tail
+			visibility: visible	
+	
 // global ends
 	
 body
@@ -209,11 +236,15 @@ i,.glyphicon
 	.infoWrapper
 		padding-left: 20px
 
-	.nameWrapper > h3
+	.nameWrapper h3
 		color: $green
 		margin: 0
+		margin-bottom: 10px
 		font-weight: 600
+		+transition(color, 100ms, 80ms)
 		font-size: 22px
+		&:hover, &:active
+			color: ($blue)
 	
 	.infoLines
 		line-height: 1.3
@@ -222,14 +253,15 @@ i,.glyphicon
 		color: $grey
 		font-size: 14px
 	
-	.infoMar
-		margin-top: 10px
-	
-	.ratingWrapper, .likesWrapper
+	.ratinglikesWrapper
 		position: absolute
 		right: 10px
-		color: $white
 		top: 25px
+	
+	.ratingWrapper, .likesWrapper
+		color: $white
+		display: block
+		margin-bottom: 15px
 		font-weight: 600
 		text-align: center
 		min-width: 45px
@@ -287,7 +319,7 @@ i,.glyphicon
 			max-width: none
 			width: 100%
 			opacity: .7
-			+transition(all, 150ms)
+			+transition(opacity, 150ms, 100ms)
 			&:hover
 				opacity: 1
 		i
@@ -299,7 +331,6 @@ i,.glyphicon
 	
 
 .search
-	min-width: 250px
 	position: absolute
 	top: 50%
 	left: 50%
@@ -308,12 +339,13 @@ i,.glyphicon
 	outline: none
 
 	#searchBar
-		width: 100%
+		width: 40vw
+		max-width: 500px 
 		+borderRadius(4px)
 		border: none
 		padding: 10px 30px 10px 30px 
 		font-weight: 500
-		+transition(all, 150ms)
+		+transition(color, 150ms, 0ms)
 		&:active, &:focus
 			outline: none
 	
@@ -345,3 +377,38 @@ i,.glyphicon
 	border-color: transparent transparent #5c89b7 transparent
 	border-width: 0px 0 10px 10px 
 	bottom: -14px
+	
+
+footer
+	h4
+		text-align: center
+		margin-bottom: 40px
+		
+	h4 > span
+		font-size: 16px
+		font-weight: 600
+		color: $other-grey
+		position: relative
+	
+		&:after
+			+transition(all, 200ms, 50ms)
+			content: ' />'
+			opacity: 0
+			right: 0
+			position: absolute
+			top: 2px
+		&:before
+			+transition(all, 200ms, 50ms)
+			content: '< '
+			opacity: 0
+			left: 0
+			position: absolute
+			top: 2px
+		&:hover
+			&:after
+				opacity: 1
+				right: -15px
+				
+			&:before
+				opacity: 1
+				left: -15px
