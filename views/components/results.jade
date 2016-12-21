@@ -1,28 +1,71 @@
-h3.resultInfoHeading Here are top 10 restaurants of your locality.
+main
+	.container
+		h3.resultsInfoHeading 
+			| Food suggestions near 
+			strong New Delhi
+		for book in [0,0,0,0,0]
+			.resultsWrapper.row
+				.result
+					.imgWrapper
+						img(src="http://placehold.it/100x100")
+					.infoWrapper
+						.ratingWrapper
+							i.material-icons star
+							span.rating.
+								9.9
+						.likesWrapper
+							i.material-icons thumb_up
+							span.likes.
+								72
+						.nameWrapper
+							h3 Midnight Maddness
+							
+							p.infoLines.foodLoc.infoMar
+								span.location
+									i.material-icons room
+									|  Chandini Chowk, New Delhi- 11024
+							p.infoLines.foodLoc
+								span.number
+									i.material-icons call 
+									|  011-244244244
+				.otherResultInfoWrapper.row
+					.col-xs-12.otherInfoWrapper
+						.col-xs-4.otherInfoHead
+							p.
+								Cuisine
+						.col-xs-8.otherInfoBody
+							p.
+								Indian, Cafe, Mughlai
+					.col-xs-12.otherInfoWrapper
+						.col-xs-4.otherInfoHead
+							p.
+								Status
+						.col-xs-8.otherInfoBody
+							p.
+								20 people are here.
+					.col-xs-12.otherInfoWrapper
+						.col-xs-4.otherInfoHead
+							p.
+								Review
+						.col-xs-8.otherInfoBody
+							p.
+								The food here is delecious but shakes are not that good.
+							img(src="http://placehold.it/30x30").reviewer
+							p.reviewerInfo
+								|	Amit 
+								span.
+									• 21 August, 2016
+					.col-xs-12.buttonWrapper
+						.col-xs-6.vleft
+							a
+								button.resultBtn.shareBtn
+									i.material-icons share
+									|  Share 
+						.col-xs-6.vright
+							a
+								button.resultBtn.countBtn 
+									i.material-icons person
+									|  You and 20 others are going
 
-for result in results
-	.resultsWrapper.row
-		.imgWrapper.col-sm-3.col-xs-12.text-center
-			img(src='#{result.imgUrl}' class="restaurantPic")
-		.infoWrapper.col-sm-9.text-left.col-xs-12
-			.col-sm-12
-				.nameWrapper
-					h3.restaurantName
-						|	#{result.name}
-					p.rating
-						strong Rating: 
-						|	#{result.rating}
-				.otherInfoWrapper
-					p.location
-						strong Location:
-						|	#{result.address}
-					p.review
-						strong Review:
-						|	#{result.comment}
-				.peopleGoingWrapper
-					p.status 
-						strong Status:
-						|	#{result.status}
-				.controlsWrapper
-					a
-						button Not Going
+						
+					

@@ -2,6 +2,19 @@ header
     .container-fluid
       .container
         .row
+          if(results !== undefined)
+            .search
+              .formsWrapper
+                form#searchForm.text-center(action="/results", method="post", name="searchForm", autocomplete="off")
+                  .searchBarWrapper
+                    input(type="text", placeholder="Enter your location...", required="required", name="searchBar").searchBar#searchBar
+                
+                form(method="post", action="/results?loc=true" name="locateMeForm")#locateMeForm
+                  a().locateMe.myTooltip
+                    i.material-icons  gps_fixed  
+                      .main Locate Me
+                      .tail 
+                      
           .logoWrapper.col-xs-6.text-left
               a(href="#")
                 h3.logo foodiebay

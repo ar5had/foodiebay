@@ -47,7 +47,7 @@ button
 	color: $white
 	font-weight: 600
 	+borderRadius(4px)
-	padding: 10px 15px
+	padding: 8px 15px
 	outline: none
 	+transition(all, 100ms)
 	&:hover
@@ -70,9 +70,11 @@ button
 
 h2.logo
 	font-weight: 700
+	color: $white
 	font-size: 45px
 
 h3.heading
+	color: $white
 	margin: 30px auto
 	font-weight: 200
 	font-weight: 500
@@ -112,60 +114,3 @@ button.login
 		width: 12px
 		margin-right: 5px
 		padding-bottom: 2px
-
-.formsWrapper		
-	position: relative
-		
-#locateMeForm
-	display: inline-block
-	position: absolute
-	top: 50%
-	right: 10px
-	line-height: 1
-	transform: translateY(-50%)
-
-.locateMe
-	i
-		color: $grey
-		font-size: 18px
-		vertical-align: sub
-	padding: 8px 6px 6px 6px
-	+borderRadius(4px)
-	line-height: 1
-	+transition(100ms,background)
-	cursor: pointer
-	&:hover, &:active
-		i
-			color: $dark-grey
-		background: #efefef
-
-
-.myTooltip
-	&:hover
-		.main, .tail
-			visibility: visible
-	position: relative
-	
-	.main
-		+transition(100ms, all)
-		visibility: hidden
-		position: absolute
-		top: -38px
-		right: 13px
-		background: #5c89b7
-		color: $white
-		white-space: nowrap
-		padding: 6px
-	
-	.tail
-		+transition(100ms, all)
-		visibility: hidden
-		position: absolute
-		border-color: #5c89b7 transparent transparent 
-		border-style: solid
-		border-width: 10px 0 0 10px
-		height: 0
-		top: -13px
-		right: 13px
-		width: 0
-		z-index: 12

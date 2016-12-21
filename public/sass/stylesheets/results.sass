@@ -17,8 +17,14 @@ main >  .container
 	strong	
 		color: inherit
 		font-weight: 600
+
+i,.glyphicon 
+	font-size: 12px !important	
+	margin-right: 5px !important
+
 	
 .resultsWrapper
+	position: relative
 	margin: 0
 	.imgWrapper, .infoWrapper
 		padding: 0
@@ -27,11 +33,17 @@ main >  .container
 	border-bottom: solid 1px $border-color
 	padding: 25px 10px
 	
+	.result, .otherInfoBody
+		&:after 
+			content: ""
+			clear: both
+			display: table
+	
 	.infoWrapper
 		padding-left: 20px
 
 	.nameWrapper > h3
-		color: #159160
+		color: $green
 		margin: 0
 		font-weight: 600
 		font-size: 22px
@@ -39,7 +51,129 @@ main >  .container
 	.infoLines
 		line-height: 1.3
 		margin: 0
+		margin-bottom: 5px
 		color: $grey
+		font-size: 14px
 	
-	.marT5
-		margin-top: 5px
+	.infoMar
+		margin-top: 10px
+	
+	.ratingWrapper, .likesWrapper
+		position: absolute
+		right: 10px
+		color: $white
+		top: 25px
+		font-weight: 600
+		text-align: center
+		min-width: 45px
+		line-height: 1
+		background: $green
+		padding: 5px
+		+borderRadius(4px)
+		span
+			line-height: 1
+			font-size: 12px
+		span, i
+			vertical-align: middle
+			
+	.likesWrapper
+		background: $blue
+		top: 60px
+	
+	.imgWrapper
+		img
+			width: 100px
+			height: 100px
+			+borderRadius(4px)
+	
+	.otherResultInfoWrapper
+		margin-top: 20px
+		.col-xs-12
+			padding: 0
+		.otherInfoHead
+			p
+				color: $grey
+				font-weight: 600
+		.otherInfoBody
+			p
+				color: $other-grey
+		.reviewer
+			float: left
+			+borderRadius(4px)
+		.reviewerInfo
+			float: left
+			padding-left: 10px
+			line-height: 30px
+			font-weight: 600
+	
+
+	
+	.buttonWrapper
+		margin-top: 20px
+		.resultBtn
+			border: none
+			color: $white
+			background: rgba($blue, 1)
+			min-width: none
+			max-width: none
+			width: 100%
+			opacity: .7
+			+transition(all, 150ms)
+			&:hover
+				opacity: 1
+		i
+			font-size: 14px !important
+			vertical-align: sub
+		
+		.countBtn
+			background: rgba($green, 1)
+	
+
+.search
+	min-width: 250px
+	position: absolute
+	top: 50%
+	left: 50%
+	transform: translate(-50%, -50%)
+	z-index: 99999
+	outline: none
+
+	#searchBar
+		width: 100%
+		+borderRadius(4px)
+		border: none
+		padding: 10px 30px 10px 30px 
+		font-weight: 500
+		+transition(all, 150ms)
+		&:active, &:focus
+			outline: none
+	
+#locateMeForm
+	right: 6px
+	.locateMe
+		padding: 2px 3px 4px 3px !important
+		i
+			margin: 0 !important
+			vertical-align: middle 
+
+.searchBarWrapper
+	&:before 
+		font-family: Glyphicons Halflings
+		content: "\e003"
+		font-size: 12px
+		color: $grey
+		position: absolute
+		top: 21px
+		left: 9px
+		transform: translateY(-50%)
+		padding-right: 11px
+		line-height: 1
+		
+
+.main	
+	bottom: -38px
+	
+.tail
+	border-color: transparent transparent #5c89b7 transparent
+	border-width: 0px 0 10px 10px 
+	bottom: -14px

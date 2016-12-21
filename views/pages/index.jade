@@ -17,9 +17,9 @@ block content
               input(type="text", placeholder="Enter your location...", required="required", name="searchBar").searchBar#searchBar
               
           form(method="post", action="/results?loc=true" name="locateMeForm")#locateMeForm
-                a(data-toggle="tooltip", title="Locate Me").locateMe.myTooltip
-                  i.material-icons  gps_fixed
-                  .main Locate Me
-                  .tail    
+            a().locateMe.myTooltip
+              i.material-icons  gps_fixed
+                .main Locate Me
+                .tail    
   
   script(src="/javascripts/homepage.js")
