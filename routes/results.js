@@ -37,8 +37,9 @@ var getResults = function (req, res, next) {
     
     request(url, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-          var res = JSON.parse(body);
-          ll = res.latitude + "," + res.longitude;
+          var response = JSON.parse(body);
+          ll = response.latitude + "," + response.longitude;
+          req.location = response.city + ", " + response.region_name;
           params = {
             'll' : ll.toString(),
             'query': "restaurant"
@@ -62,6 +63,7 @@ var getResults = function (req, res, next) {
     
   } else { 		  
     var location = req.body.searchBar;
+    req.location = location;
     params = {
         'near': location,
         'query': "restaurant"
@@ -91,26 +93,26 @@ var filterData = function(req, res, next) {
     };
     var urlString = "https://api.foursquare.com/v2/multi?requests=" + req.ids.slice(0, 10).join(',') + '&' + querystring.stringify(credentials);
     request(urlString, function (error, response, results) {
-      
+        
         if (!error && response.statusCode == 200) {
           JSON.parse(results).response.responses.forEach(function(result){
               var venue = result.response.venue;
               var obj = {};
+              obj.reqLocation = req.location;
               obj.name = venue.name;
               obj.rating = venue.rating && venue.rating;
               obj.ratingColor = venue.rating && venue.ratingColor;
-              obj.category = venue.categories[0] && venue.categories[0].shortName;
-              obj.phoneNo = venue.contact.phoneNo;
-              obj.address = venue.location.formattedAddress.join();
+              obj.category = venue.categories && (venue.categories.map(function(c) {return c.shortName})).join(", ");
+              obj.phoneNo = venue.contact.formattedPhone;
+              obj.address = venue.location.address  + ", " + venue.location.city;
               obj.status = venue.hereNow && venue.hereNow.summary;
               obj.tier = venue.price && venue.price.tier;
               obj.currency = venue.price && venue.price.currency;
               obj.imgUrl = venue.photos.groups[0] && (venue.photos.groups[0].items[0].prefix + '300x300' + venue.photos.groups[0].items[0].suffix);
               obj.imgUrl = obj.imgUrl ? obj.imgUrl: (venue.bestPhoto && venue.bestPhoto.prefix + '300x300' + venue.bestPhoto.suffix);
               obj.comment =  venue.tips.groups[0].items[0] && venue.tips.groups[0].items[0].text;
-              obj.commentator = { 'name': venue.photos.groups[0] && venue.photos.groups[0].items[0].user.firstName, 
-                'imgUrl': obj.commentator = venue.photos.groups[0] && (venue.photos.groups[0].items[0].user.photo.prefix + '70x70' + venue.photos.groups[0].items[0].user.photo.suffix),
-                'date' : venue.photos.groups[0] && (new Date(venue.photos.groups[0].items[0].createdAt.toString()).toDateString())
+              obj.commentator = { 'name': venue.tips.groups[0] && (venue.tips.groups[0].items[0].user.firstName + " " + (venue.tips.groups[0].items[0].user.lastName? venue.tips.groups[0].items[0].user.lastName: "")),
+                'imgUrl': obj.commentator = venue.tips.groups[0] && (venue.tips.groups[0].items[0].user.photo.prefix + '70x70' + venue.tips.groups[0].items[0].user.photo.suffix)
               };
               obj.likesCount = venue.likes && venue.likes.count;
               obj.url = venue.shortUrl;
@@ -134,6 +136,7 @@ var showResults = function(req, res) {
         });
    delete req.results;
    delete req.ids;
+   delete req.location;
 };
 
 module.exports = function(app) {

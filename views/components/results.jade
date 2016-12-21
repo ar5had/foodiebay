@@ -2,32 +2,33 @@ main
 	.container
 		h3.resultsInfoHeading 
 			| Food suggestions near 
-			strong New Delhi
-		for book in [0,0,0,0,0]
+			strong #{results[0].reqLocation}
+		for result in results
 			.resultsWrapper.row
 				.result
 					.imgWrapper
-						img(src="http://placehold.it/100x100")
+						img(src="#{result.imgUrl}")
 					.infoWrapper
-						.ratingWrapper
+						.ratingWrapper(style="color: #{result.ratingColor} !important")
 							i.material-icons star
 							span.rating.
-								9.9
+								#{result.rating}
 						.likesWrapper
 							i.material-icons thumb_up
 							span.likes.
-								72
+								#{result.likesCount}
 						.nameWrapper
-							h3 Midnight Maddness
+							a(href="#{result.url}")
+								h3 #{result.name}
 							
 							p.infoLines.foodLoc.infoMar
 								span.location
 									i.material-icons room
-									|  Chandini Chowk, New Delhi- 11024
+									|  #{result.address}
 							p.infoLines.foodLoc
 								span.number
 									i.material-icons call 
-									|  011-244244244
+									|  #{result.phoneNo}
 				.otherResultInfoWrapper.row
 					.col-xs-12.otherInfoWrapper
 						.col-xs-4.otherInfoHead
@@ -35,26 +36,24 @@ main
 								Cuisine
 						.col-xs-8.otherInfoBody
 							p.
-								Indian, Cafe, Mughlai
+								#{result.category}
 					.col-xs-12.otherInfoWrapper
 						.col-xs-4.otherInfoHead
 							p.
 								Status
 						.col-xs-8.otherInfoBody
 							p.
-								20 people are here.
+								#{result.status}
 					.col-xs-12.otherInfoWrapper
 						.col-xs-4.otherInfoHead
 							p.
 								Review
 						.col-xs-8.otherInfoBody
 							p.
-								The food here is delecious but shakes are not that good.
-							img(src="http://placehold.it/30x30").reviewer
+								#{result.comment}
+							img(src="#{result.commentator.imgUrl}").reviewer
 							p.reviewerInfo
-								|	Amit 
-								span.
-									• 21 August, 2016
+								|	#{result.commentator.name}
 					.col-xs-12.buttonWrapper
 						.col-xs-6.vleft
 							a
