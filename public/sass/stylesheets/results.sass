@@ -1,5 +1,3 @@
-
-
 $white         : rgb(254, 254, 254)
 $faded-white   : rgba($white, .2)
 $green         : #159957
@@ -28,6 +26,11 @@ $grey          : #888
 	-moz-border-radius: $rad
 	border-radius: $rad
 
+
+* 
+	font-family: Source Sans Pro, Helvetica Neue, Helvetica, sans-serif
+
+
 body
 	overflow: hidden
 	
@@ -42,9 +45,12 @@ body
     z-index: 123
     +transition(opacity, 250ms, 0ms)
 	
-
-* 
-	font-family: Source Sans Pro, Helvetica Neue, Helvetica, sans-serif
+.noResults
+	line-height: 84vh
+	color: $other-grey
+	text-align: center
+	font-size: 25px
+	border-bottom: solid 1px $border-color
 	
 html 
 	font-size: 1px
@@ -68,7 +74,7 @@ html
 	font-size: 10px
 	
 .container
-	max-width: 800px
+	max-width: 920px
 	
 
 header
@@ -382,9 +388,9 @@ i,.glyphicon
 footer
 	h4
 		text-align: center
-		margin-bottom: 40px
+		margin: 20px auto 30px auto
 		
-	h4 > span
+	h4 span
 		font-size: 16px
 		font-weight: 600
 		color: $other-grey

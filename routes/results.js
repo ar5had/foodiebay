@@ -1,7 +1,6 @@
 var users = require("../models/users.js");
 var request = require("request");
 var querystring = require("querystring");
-var satelize = require("satelize");
 
 var isUserLogged = function(req, res, next) {
   if (req.isAuthenticated()) {
@@ -61,8 +60,8 @@ var getResults = function (req, res, next) {
       }
     });
     
-  } else { 		  
-    var location = req.body.searchBar;
+  } else {
+    var location = req.query.search;
     req.location = location;
     params = {
         'near': location,
@@ -85,6 +84,7 @@ var getResults = function (req, res, next) {
 };
 
 var filterData = function(req, res, next) {
+  if (req.ids) {
     
     var credentials = {
       'v': '20140806',
@@ -130,7 +130,7 @@ var filterData = function(req, res, next) {
               obj.status = obj.status || undefined;
               obj.tier = obj.tier || undefined;
               obj.currency = obj.currency || undefined;
-              obj.imgUrl = obj.imgUrl || "http://placehold.it/100?text="+ str;
+              obj.imgUrl = obj.imgUrl || "https://placehold.it/100?text="+ str;
               obj.comment =  obj.comment || undefined;
               obj.commentator = obj.commentator || undefined;
               obj.likesCount = obj.likesCount || undefined;
@@ -145,15 +145,32 @@ var filterData = function(req, res, next) {
         }
     
     });
+  } else {
+    next();
+  }
 };
 
 
 var showResults = function(req, res) {
-  res.render('./pages/resultsPage', {
-            title: "Results for " + req.location + " - foodiebay",
-            user: req.user,
-            results: req.results
-        });
+  var obj;
+  
+  if (req.ids) {
+    obj =  {
+      title: "Results for " + req.location + " - foodiebay",
+      user: req.user,
+      results: req.results
+    };
+  } else {
+    obj = {
+      title: "Results for " + req.location + " - foodiebay",
+      user: req.user,
+      results: null,
+      location: req.location
+    };
+  }
+  
+  res.render('./pages/resultsPage', obj);
+  
    delete req.results;
    delete req.ids;
    delete req.location;
@@ -161,5 +178,5 @@ var showResults = function(req, res) {
 
 module.exports = function(app) {
     app.route('/results')
-    		.post(isUserLogged, getResults, filterData, showResults);
+    		.get(isUserLogged, getResults, filterData, showResults);
 };

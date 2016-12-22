@@ -2,7 +2,12 @@ extends ../layouts/resultsLayout
 
 block content
   include ../components/header
-  include ../components/results
+  
+  if (results !== null)
+    include ../components/results
+  else 
+    include ../components/noResults
+    
   include ../components/footer
   
   script(src="/javascripts/homepage.js")
