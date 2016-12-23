@@ -1,4 +1,5 @@
 var users = require("../models/users.js");
+var restaurants = require("../models/restaurants.js");
 var request = require("request");
 var querystring = require("querystring");
 
@@ -20,6 +21,26 @@ var isUserLogged = function(req, res, next) {
   }
 };
 
+
+var getRestaurantData = function(req, res, next) {
+  console.log("getRestaurantData - ids are", req.ids);
+  if(req.ids) {
+    restaurants.find({})
+      .exec(function(err, data) {
+        if (err) {
+          next(err);
+        } else {
+          console.log("restaurant data is ", data);
+          req.session.restaurants = data;
+          next();
+        }
+      });
+  } else {
+    next();
+  }
+};
+
+
 var getResults = function (req, res, next) {
   
   var credentials = {
@@ -39,9 +60,11 @@ var getResults = function (req, res, next) {
     
     request(url, function (error, response, body) {
       if (!error && response.statusCode == 200) {
+          console.log("ip loc body is", body);
           var resp = JSON.parse(body);
           ll = resp.latitude + "," + resp.longitude;
-          req.location = resp.city + ", " + resp.region_name;
+          
+          req.location = (resp.city && (resp.city + ", ")) + (resp.region_name && (resp.region_name + ", ")) + resp.country_name;
           params = {
             'll' : ll.toString(),
             'query': "restaurant",
@@ -114,6 +137,7 @@ var filterData = function(req, res, next) {
           JSON.parse(results).response.responses.forEach(function(result){
               var venue = result.response.venue;
               var obj = {};
+              obj.id = venue.id;
               obj.reqLocation = req.location;
               obj.name = venue.name;
               obj.rating = venue.rating && venue.rating;
@@ -170,6 +194,9 @@ var filterData = function(req, res, next) {
 var showResults = function(req, res) {
   var obj;
   
+  var formattedData = {};
+  formattedData.ids = req.session.restaurants.map(function(elem) {return elem.venueId});
+  formattedData.usersGoing = req.session.restaurants.map(function(elem) {return elem.usersGoing});
   if(req.ids && (req.ids.length <= (req.query.page * 10)) ) {
     var last = true;
   }
@@ -179,7 +206,9 @@ var showResults = function(req, res) {
       title: "Results for " + req.location + " - foodiebay",
       user: req.user,
       results: req.results,
-      last: last
+      last: last,
+      restaurants: formattedData,
+      userLoggedIn: req.isAuthenticated()
     };
   } else {
     obj = {
@@ -191,7 +220,7 @@ var showResults = function(req, res) {
   }
   
   if (req.query.type === "xhr") {
-    res.render('./components/results', {results: req.results, last: last});
+    res.render('./components/results', {results: req.results, last: last, restaurants: formattedData, userLoggedIn: req.isAuthenticated() });
   } else {
     res.render('./pages/resultsPage', obj);
   }
@@ -200,10 +229,11 @@ var showResults = function(req, res) {
   delete req.ids;
   delete req.location;
   delete req.session.savedLocation;
+  delete req.session.restaurants;
   req.session.save();
 };
 
 module.exports = function(app) {
     app.route('/results')
-    		.get(getResults, isUserLogged, filterData, showResults);
+    		.get(getResults, getRestaurantData, isUserLogged, filterData, showResults);
 };

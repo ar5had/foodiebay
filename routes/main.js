@@ -3,6 +3,7 @@ var index = require("./index.js");
 var auth = require("./auth.js");
 var logout = require("./logout.js");
 var results = require("./results.js");
+var markRestaurant = require("./markRestaurant.js");
 
 module.exports = function(app, passport) {
 
@@ -20,7 +21,7 @@ module.exports = function(app, passport) {
     }
     
     auth(app, passport);
-
+    markRestaurant(app);
     index(app);
     logout(app);
     results(app);

@@ -73,11 +73,31 @@ for result in results
 							i.material-icons share
 							|  Share 
 				.col-xs-6.vright
-					a
-						button.resultBtn.countBtn 
-							i.material-icons person
-							|  You and 20 others are going
-
+					if(userLoggedIn === true)
+						a	 
+							button(data-id="#{result.id}").resultBtn.countBtn 
+								i.material-icons person
+								-var index = restaurants.ids.indexOf(result.id);
+								-var usersGoingData = "null";
+								-if (index === -1) {
+								-usersGoingData = "No one is going";	
+								-} else {
+								-usersGoingData = "You and " + (restaurants.ids.length - 1) + " others are going"
+								-} 
+								span  #{usersGoingData}
+					else
+						a(href="/auth/twitter")
+							button(data-id="#{result.id}").resultBtn.countBtn
+								i.material-icons person
+								-var index = restaurants.ids.indexOf(result.id);
+								-var usersGoingData = "null";
+								-if (index === -1) {
+								-usersGoingData = "No one is going";	
+								-} else {
+								-usersGoingData = restaurants.ids.length + " users are going"
+								-} 
+								span  #{usersGoingData}
+							
 if (last !== true)
 	.col-xs-12.text-center.vmbWrapper
 		button#viewMoreBtn View More
