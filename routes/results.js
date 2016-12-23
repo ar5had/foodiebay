@@ -4,6 +4,8 @@ var request = require("request");
 var querystring = require("querystring");
 
 var isUserLogged = function(req, res, next) {
+  if(req.query.type !== "xhr")
+    req.session.returnTo = req.originalUrl;
   // dont save location that have no results
   if (req.isAuthenticated() && req.ids) {
     users.findOneAndUpdate({_id: req.user._id}, {$set: {userLocation: req.location}})
@@ -193,15 +195,16 @@ var filterData = function(req, res, next) {
 
 var showResults = function(req, res) {
   var obj;
-  
   var formattedData = {};
-  formattedData.ids = req.session.restaurants.map(function(elem) {return elem.venueId});
-  formattedData.usersGoing = req.session.restaurants.map(function(elem) {return elem.usersGoing});
+  
   if(req.ids && (req.ids.length <= (req.query.page * 10)) ) {
     var last = true;
   }
   
   if (req.ids) {
+    formattedData.ids = req.session.restaurants.map(function(elem) {return elem.venueId});
+    formattedData.usersGoing = req.session.restaurants.map(function(elem) {return elem.usersGoing});
+
     obj =  {
       title: "Results for " + req.location + " - foodiebay",
       user: req.user,
@@ -212,10 +215,10 @@ var showResults = function(req, res) {
     };
   } else {
     obj = {
-      title: "Results for " + req.location + " - foodiebay",
+      title: "No results found - foodiebay",
       user: req.user,
       results: null,
-      location: req.location
+      location: req.location || "your search!"
     };
   }
   

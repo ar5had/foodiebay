@@ -43,12 +43,15 @@
         countBtn.addEventListener("click", function() {
             var xhttp = new XMLHttpRequest();
             var id = countBtn.getAttribute('data-id');
+            countBtn.disabled = true;
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4) {
                     if(this.status == 200) {
                         countBtn.children[1].textContent = this.responseText;
+                        countBtn.disabled = false;
                     } else {
                         console.log( "error while making request to /markRestaurant", this.statusText);
+                        countBtn.disabled = false;
                     }
                 }
             };

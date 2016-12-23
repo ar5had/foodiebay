@@ -75,26 +75,28 @@ for result in results
 				.col-xs-6.vright
 					if(userLoggedIn === true)
 						a	 
-							button(data-id="#{result.id}").resultBtn.countBtn 
+							button(data-id="#{result.id}").resultBtn.countBtn.greenBtn
 								i.material-icons person
 								-var index = restaurants.ids.indexOf(result.id);
 								-var usersGoingData = "null";
 								-if (index === -1) {
 								-usersGoingData = "No one is going";	
 								-} else {
-								-usersGoingData = "You and " + (restaurants.ids.length - 1) + " others are going"
+								-var count = (restaurants.usersGoing[index].length);
+								-usersGoingData = (count === 1 ? " You are going" : ("You and " + ( (count-1 === 1) ? "1 other is going" : ( (count - 1) + "others are going") ) ) );
 								-} 
 								span  #{usersGoingData}
 					else
 						a(href="/auth/twitter")
-							button(data-id="#{result.id}").resultBtn.countBtn
+							button(data-id="#{result.id}").resultBtn.greenBtn
 								i.material-icons person
 								-var index = restaurants.ids.indexOf(result.id);
 								-var usersGoingData = "null";
 								-if (index === -1) {
 								-usersGoingData = "No one is going";	
 								-} else {
-								-usersGoingData = restaurants.ids.length + " users are going"
+								-var count  = restaurants.usersGoing[index].length;
+								-usersGoingData = count > 1 ? (count + " users are going") : "1 user is going";
 								-} 
 								span  #{usersGoingData}
 							
