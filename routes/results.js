@@ -90,7 +90,11 @@ var getResults = function (req, res, next) {
     });
     
   } else {
-    var location = req.query.search || req.session.savedLocation;
+    var location;
+    if (req.query.redirect && req.session.savedLocation)
+      location = req.session.savedLocation;
+    else 
+      location = req.query.search;
     req.location = location;
     params = {
         'near': location,

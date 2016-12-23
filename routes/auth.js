@@ -9,7 +9,7 @@ module.exports = function(app, passport) {
             failureRedirect : '/login'
         }), 
         function(req, res) {
-        	res.redirect(req.session.returnTo || "/");
+        	res.redirect( (req.session.returnTo + "&redirect=logIn") || "/");
         	delete req.session.returnTo;
         	req.session.save();
         });
