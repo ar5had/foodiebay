@@ -4,10 +4,15 @@ block content
   include ../components/header
   
   if (results !== null)
-    include ../components/results
+    main
+      .container
+        h3.resultsInfoHeading 
+          | Food suggestions near 
+          strong #{results[0].reqLocation}
+        include ../components/results
   else 
     include ../components/noResults
     
   include ../components/footer
   
-  script(src="/javascripts/homepage.js")
+  script(src="/javascripts/resultsPage.js")

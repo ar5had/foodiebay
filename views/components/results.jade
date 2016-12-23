@@ -1,87 +1,83 @@
-main
-	.container
-		h3.resultsInfoHeading 
-			| Food suggestions near 
-			strong #{results[0].reqLocation}
-		for result in results
-			.resultsWrapper.row
-				.result
-					.imgWrapper
-						img(src="#{result.imgUrl}", target="_blank")
-					.infoWrapper
-						.ratinglikesWrapper
-							unless (result.rating === undefined)
-								.ratingWrapper(style="background: #{result.ratingColor} !important")
-									i.material-icons star
-									span.rating.
-										#{result.rating}
-							unless (result.likesCount === undefined)
-								.likesWrapper
-									i.material-icons thumb_up
-									span.likes.
-										#{result.likesCount}
-						.nameWrapper
-							a(href="#{result.url}", target="_blank")
-								h3 #{result.name}
-								
-							unless (result.address === undefined || result.city === undefined)
-								p.infoLines.foodLoc.infoMar
-									span.location
-										i.material-icons room
-										|  #{result.address}, #{result.city}
-										
-							unless (result.phoneNo === undefined)			
-								p.infoLines.foodLoc
-									span.number
-										i.material-icons call 
-										|  #{result.phoneNo}
-										
-							unless (result.tier === undefined)			
-								p.infoLines.foodLoc
-									span.number
-										strong(style="margin-right: 7px; margin-left: 3px") #{result.currency} 
-										|   #{result.tier} / 4
-							
-				.otherResultInfoWrapper.row
-				
-					unless (result.category === undefined)
-						.col-xs-12.otherInfoWrapper
-							.col-xs-4.otherInfoHead
-								p.
-									Cuisines
-							.col-xs-8.otherInfoBody
-								p.
-									#{result.category}
-					
-					.col-xs-12.otherInfoWrapper
-						.col-xs-4.otherInfoHead
-							p.
-								Status
-						.col-xs-8.otherInfoBody
-							p.
-								#{result.status}
-					unless (result.comment === undefined)
-						.col-xs-12.otherInfoWrapper
-							.col-xs-4.otherInfoHead
-								p.
-									Review
-							.col-xs-8.otherInfoBody
-								p.
-									#{result.comment}
-								img(src="#{result.commentator.imgUrl}").reviewer
-								p.reviewerInfo
-									|	#{result.commentator.name}
-					.col-xs-12.buttonWrapper
-						.col-xs-6.vleft
-							a(href="http://twitter.com/home?status=Join me for a meal at " + result.name + "?+https://" + result.url, target="_blank")
-								button.resultBtn.shareBtn
-									i.material-icons share
-									|  Share 
-						.col-xs-6.vright
-							a
-								button.resultBtn.countBtn 
-									i.material-icons person
-									|  You and 20 others are going
-
+for result in results
+	.resultsWrapper.row
+		.result
+			.imgWrapper
+				img(src="#{result.imgUrl}", target="_blank")
+			.infoWrapper
+				.ratinglikesWrapper
+					unless (result.rating === undefined)
+						.ratingWrapper(style="background: #{result.ratingColor} !important")
+							i.material-icons star
+							span.rating.
+								#{result.rating}
+					unless (result.likesCount === undefined)
+						.likesWrapper
+							i.material-icons thumb_up
+							span.likes.
+								#{result.likesCount}
+				.nameWrapper
+					a(href="#{result.url}", target="_blank")
+						h3 #{result.name}
 						
+					unless (result.address === undefined || result.city === undefined)
+						p.infoLines.foodLoc.infoMar
+							span.location
+								i.material-icons room
+								|  #{result.address}, #{result.city}
+								
+					unless (result.phoneNo === undefined)			
+						p.infoLines.foodLoc
+							span.number
+								i.material-icons call 
+								|  #{result.phoneNo}
+								
+					unless (result.tier === undefined)			
+						p.infoLines.foodLoc
+							span.number
+								strong(style="margin-right: 7px; margin-left: 3px") #{result.currency} 
+								|   #{result.tier} / 4
 					
+		.otherResultInfoWrapper.row
+		
+			unless (result.category === undefined)
+				.col-xs-12.otherInfoWrapper
+					.col-xs-4.otherInfoHead
+						p.
+							Cuisines
+					.col-xs-8.otherInfoBody
+						p.
+							#{result.category}
+			
+			.col-xs-12.otherInfoWrapper
+				.col-xs-4.otherInfoHead
+					p.
+						Status
+				.col-xs-8.otherInfoBody
+					p.
+						#{result.status}
+			unless (result.comment === undefined)
+				.col-xs-12.otherInfoWrapper
+					.col-xs-4.otherInfoHead
+						p.
+							Review
+					.col-xs-8.otherInfoBody
+						p.
+							#{result.comment}
+						img(src="#{result.commentator.imgUrl}").reviewer
+						p.reviewerInfo
+							|	#{result.commentator.name}
+			.col-xs-12.buttonWrapper
+				.col-xs-6.vleft
+					a(href="http://twitter.com/home?status=Join me for a meal at " + result.name + "?+https://" + result.url, target="_blank")
+						button.resultBtn.shareBtn
+							i.material-icons share
+							|  Share 
+				.col-xs-6.vright
+					a
+						button.resultBtn.countBtn 
+							i.material-icons person
+							|  You and 20 others are going
+
+if (last !== true)
+	.col-xs-12.text-center.vmbWrapper
+		button#viewMoreBtn View More

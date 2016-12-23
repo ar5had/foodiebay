@@ -26,7 +26,6 @@ $grey          : #888
 	-moz-border-radius: $rad
 	border-radius: $rad
 
-
 * 
 	font-family: Source Sans Pro, Helvetica Neue, Helvetica, sans-serif
 
@@ -46,7 +45,7 @@ body
     +transition(opacity, 250ms, 0ms)
 	
 .noResults
-	line-height: 84vh
+	line-height: 80vh
 	color: $other-grey
 	text-align: center
 	font-size: 25px
@@ -229,7 +228,7 @@ i,.glyphicon
 	.imgWrapper, .infoWrapper
 		padding: 0
 		float: left
-	margin-bottom: 40px
+	margin-bottom: 0
 	border-bottom: solid 1px $border-color
 	padding: 25px 10px
 	
@@ -388,7 +387,7 @@ i,.glyphicon
 footer
 	h4
 		text-align: center
-		margin: 20px auto 30px auto
+		margin: 40px auto
 		
 	h4 span
 		font-size: 16px
@@ -418,3 +417,18 @@ footer
 			&:before
 				opacity: 1
 				left: -15px
+
+.vmbWrapper
+	border-bottom: solid 1px $border-color
+
+#viewMoreBtn 
+	border-color: #dedede
+	min-width: 102px
+	color: $grey
+	background: transparent
+	+transition(all, 100ms, 80ms)
+	margin: 40px auto
+	&:active, &:hover, &:focus
+		background: #eee
+		color: $other-grey
+		

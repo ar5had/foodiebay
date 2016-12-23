@@ -3,13 +3,16 @@ var request = require("request");
 var querystring = require("querystring");
 
 var isUserLogged = function(req, res, next) {
-  if (req.isAuthenticated()) {
-    users.findOneAndUpdate({_id: req.user._id}, {$set: {userLocation: req.body.searchBar}})
+  // dont save location that have no results
+  if (req.isAuthenticated() && req.ids) {
+    users.findOneAndUpdate({_id: req.user._id}, {$set: {userLocation: req.location}})
       .exec(function(err) {
         if (err) 
           return next(err);
-        else
+        else {
+          req.session.savedLocation = req.location;
           next();
+        }
         
       });
   } else {
@@ -41,7 +44,8 @@ var getResults = function (req, res, next) {
           req.location = resp.city + ", " + resp.region_name;
           params = {
             'll' : ll.toString(),
-            'query': "restaurant"
+            'query': "restaurant",
+            'limit': 50
           };
           urlString += querystring.stringify(params) + '&' + querystring.stringify(credentials);
       
@@ -61,11 +65,12 @@ var getResults = function (req, res, next) {
     });
     
   } else {
-    var location = req.query.search;
+    var location = req.query.search || req.session.savedLocation;
     req.location = location;
     params = {
         'near': location,
-        'query': "restaurant"
+        'query': "restaurant",
+        'limit': 50
     };
     
     urlString += querystring.stringify(params) + '&' + querystring.stringify(credentials);
@@ -91,7 +96,18 @@ var filterData = function(req, res, next) {
       'client_id': process.env.CLIENT_ID,
       'client_secret': process.env.CLIENT_SECRET
     };
-    var urlString = "https://api.foursquare.com/v2/multi?requests=" + req.ids.slice(0, 10).join(',') + '&' + querystring.stringify(credentials);
+    
+    var count = 1;
+    
+    if (req.query.page) {
+      count = req.query.page;
+    }
+    
+    var i = (count - 1) * 10; // 0 for 1, 10 for 2...
+    var j = count * 10; // 10 for 1, 20 for 2 ...
+    
+    var urlString = "https://api.foursquare.com/v2/multi?requests=" + req.ids.slice(i, j).join(',') + '&' + querystring.stringify(credentials);
+    
     request(urlString, function (error, response, results) {
         
         if (!error && response.statusCode == 200) {
@@ -154,11 +170,16 @@ var filterData = function(req, res, next) {
 var showResults = function(req, res) {
   var obj;
   
+  if(req.ids && (req.ids.length <= (req.query.page * 10)) ) {
+    var last = true;
+  }
+  
   if (req.ids) {
     obj =  {
       title: "Results for " + req.location + " - foodiebay",
       user: req.user,
-      results: req.results
+      results: req.results,
+      last: last
     };
   } else {
     obj = {
@@ -169,14 +190,20 @@ var showResults = function(req, res) {
     };
   }
   
-  res.render('./pages/resultsPage', obj);
+  if (req.query.type === "xhr") {
+    res.render('./components/results', {results: req.results, last: last});
+  } else {
+    res.render('./pages/resultsPage', obj);
+  }
   
-   delete req.results;
-   delete req.ids;
-   delete req.location;
+  delete req.results;
+  delete req.ids;
+  delete req.location;
+  delete req.session.savedLocation;
+  req.session.save();
 };
 
 module.exports = function(app) {
     app.route('/results')
-    		.get(isUserLogged, getResults, filterData, showResults);
+    		.get(getResults, isUserLogged, filterData, showResults);
 };
