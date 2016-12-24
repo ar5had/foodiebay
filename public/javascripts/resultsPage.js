@@ -2,7 +2,10 @@
 
     var elem = document.querySelector('.locateMe');
     var form = document.getElementById('locateMeForm');
-    
+    var searchBtn = document.querySelector('.searchBtn');
+    var searchWrapper = document.querySelector(".search");
+    var userABWrapper = document.querySelector("header .buttonWrapper > a");
+    var userAccBtn = document.querySelector('.userAccBtn');
     var count = 2;
     elem.addEventListener("click", function() {
         form.submit();    
@@ -74,6 +77,52 @@
             }
         }
     };
+    
+    
+    
+    searchBtn.addEventListener('click', function(e) {
+        if (!e) var e = window.event
+    		e.cancelBubble = true;
+    	if (e.stopPropagation) 
+    		e.stopPropagation()
+    		
+    	if(userABWrapper.style.visibility === "visible")	
+            userABWrapper.style.visibility = "hidden";
+            
+        if(document.querySelector(".search").style.visibility === "visible")
+            document.querySelector(".search").style.visibility = "hidden"
+        else
+            document.querySelector(".search").style.visibility = "visible"; 
+    });
+    
+    userAccBtn.addEventListener('click', function(e) {
+        if (!e) var e = window.event
+    		e.cancelBubble = true;
+    	if (e.stopPropagation) 
+    		e.stopPropagation()
+    		
+    	if(document.querySelector(".search").style.visibility === "visible")
+            document.querySelector(".search").style.visibility = "hidden"
+    		
+    	if(userABWrapper.style.visibility === "visible")	
+            userABWrapper.style.visibility = "hidden";
+        else
+            userABWrapper.style.visibility = "visible";
+    });
+    
+    searchWrapper.addEventListener('click', function(e) {
+        if (!e) var e = window.event
+    		e.cancelBubble = true;
+    	if (e.stopPropagation) 
+    		e.stopPropagation()
+    });
+    
+    window.addEventListener("click", function() {
+        if (window.innerWidth <= 550)
+            document.querySelector(".search").style.visibility = "hidden",
+            userABWrapper.style.visibility = "hidden";
+            
+    });
     
     bindAllCountBtns(document.querySelectorAll(".countBtn"));
     bindvmBtn();

@@ -27,12 +27,23 @@ $min-width     : 550px
 	-moz-border-radius: $rad
 	border-radius: $rad
 
+=boxShadow($a, $b, $c)
+	-webkit-box-shadow: $a, $b, $c
+	-moz-box-shadow: $a, $b, $c
+	box-shadow: $a, $b, $c
+
 * 
 	font-family: Source Sans Pro, Helvetica Neue, Helvetica, sans-serif
 
 
 body
 	overflow: hidden
+
+.container-fluid
+	padding: 0
+	.container
+		.row
+			margin: 0 
 	
 #hideAll
     position: fixed
@@ -70,8 +81,8 @@ html
 		
 .divider
 	margin: auto 8px
-	border-right: 2px solid $white
-	font-size: 10px
+	font-weight: 900
+	font-size: 12px
 	
 .container
 	max-width: 920px
@@ -130,7 +141,7 @@ button
 	+borderRadius(4px)
 	padding: 8px 15px
 	outline: none
-	+transition(all, 100ms, 80ms)
+	+transition(all, 70ms, 0ms)
 	&:hover
 		border-color: rgba($white, .7)
 		background: rgba($white, .1)
@@ -340,7 +351,7 @@ i,.glyphicon
 	
 
 .search
-	visibility: hidden
+	+transition(visibility, 70ms, 0ms)
 	border-radius: 4px
 	position: absolute
 	top: 50%
@@ -354,7 +365,7 @@ i,.glyphicon
 		max-width: 500px 
 		+borderRadius(4px)
 		border: none
-		padding: 10px 30px 10px 30px 
+		padding: 11px 30px 11px 30px 
 		font-weight: 500
 		+transition(color, 150ms, 0ms)
 		&:active, &:focus
@@ -438,24 +449,60 @@ footer
 		background: #eee
 		color: $other-grey
 		
+.searchBtn, .userAccBtn
+	display: none
+	position: absolute
+	font-size: 30px !important
+	color: rgba($white, .8)
+	transform: translate(-50%, -50%)
+	display:none
+	cursor: pointer
+	top: 50%
+	right: 55px
+	+transition(all, 70ms, 0ms)
+	&:hover, &:active
+		color: $white
+
+.userAccBtn
+	right: 0		
 // media queries
 
 @media (max-width: $min-width)
-  .resultsWrapper .imgWrapper
-  	text-align: center
-  	float: none
-  .infoWrapper
-  	margin-top: 20px
-  	padding: 0 !important
-  	width: 100% !important
-  .vleft, .vright
-  	width: 100% !important
-  .vright
-  	margin-top: 20px
-  .search
-  	transform: translate(-50%, 120%)
-  	box-shadow: 0 3px 20px rgba(89,105,129,.3), 0 1px 2px rgba(0,0,0,.05), 0 0 0 1px rgba(89,105,129,.1)
-  	#searchBar
-  		width: 80vw
-	  	
-  
+	header
+		.buttonWrapper
+			position: static
+			a 
+				visibility: hidden
+				position: absolute
+				left: 50%
+				top: 50%
+				transform: translate(-50%, 120%)
+				button
+					+boxShadow(0 3px 20px rgba(89,105,129,.3), 0 1px 2px rgba(0,0,0,.05), 0 0 0 1px rgba(89,105,129,.1))
+					background: rgba($white, 1)
+					width: 80vw
+					color: $other-grey
+					.divider
+						border-color: rgba($other-grey, .8)
+						font-weight: 900
+						font-size: 12px
+    					vertical-align: text-top
+	.searchBtn, .userAccBtn
+		display: block
+	.resultsWrapper .imgWrapper
+		text-align: center
+		float: none
+	.infoWrapper
+		margin-top: 20px
+		padding: 0 !important
+		width: 100% !important
+	.vleft, .vright
+		width: 100% !important
+	.vright
+		margin-top: 20px
+	.search
+		visibility: hidden
+		transform: translate(-50%, 120%)
+		+boxShadow(0 3px 20px rgba(89,105,129,.3), 0 1px 2px rgba(0,0,0,.05), 0 0 0 1px rgba(89,105,129,.1))
+	#searchBar
+		width: 80vw !important
