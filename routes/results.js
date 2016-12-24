@@ -13,7 +13,6 @@ var isUserLogged = function(req, res, next) {
         if (err) 
           return next(err);
         else {
-          req.session.savedLocation = req.location;
           next();
         }
         
@@ -91,10 +90,7 @@ var getResults = function (req, res, next) {
     
   } else {
     var location;
-    if (req.query.redirect && req.session.savedLocation)
-      location = req.session.savedLocation;
-    else 
-      location = req.query.search;
+    location = req.query.search;
     req.location = location;
     params = {
         'near': location,
@@ -235,7 +231,6 @@ var showResults = function(req, res) {
   delete req.results;
   delete req.ids;
   delete req.location;
-  delete req.session.savedLocation;
   delete req.session.restaurants;
   req.session.save();
 };

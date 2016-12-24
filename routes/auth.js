@@ -6,10 +6,10 @@ module.exports = function(app, passport) {
     // handle the callback after twitter has authenticated the user
     app.get('/auth/twitter/callback',
         passport.authenticate('twitter', {
-            failureRedirect : '/login'
+            failureRedirect : '/'
         }), 
         function(req, res) {
-        	res.redirect( (req.session.returnTo + "&redirect=logIn") || "/");
+        	res.redirect( /*(req.session.returnTo + "&redirect=logIn")*/ req.session.returnTo || "/");
         	delete req.session.returnTo;
         	req.session.save();
         });
