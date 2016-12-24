@@ -21,14 +21,16 @@ header
                 h3.logo foodiebay
           .buttonWrapper.col-xs-6.text-right
             if (user == undefined)
-              i.searchBtn.material-icons search
+              if (results !== undefined)
+                i.searchBtn.material-icons search
               i.userAccBtn.material-icons perm_identity
               a(href='/auth/twitter')
                 button.login
                   // img(src='https://raw.githubusercontent.com/arshdkhn1/nightlife-coordination-app/master/public/images/twitter.png')
                   | Log In
             else
-              i.searchBtn.material-icons search
+              if (results !== undefined)
+                i.searchBtn.material-icons search
               i.userAccBtn.material-icons perm_identity            
               a(href='/logout')
                 button

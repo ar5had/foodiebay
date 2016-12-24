@@ -124,6 +124,30 @@
             
     });
     
+    if(window.attachEvent) {
+    window.attachEvent('onresize', function() {
+            if(window.innerWidth > 550) {
+                document.querySelector(".search").style.visibility = "visible";
+                userABWrapper.style.visibility = "visible";
+            } else {
+                document.querySelector(".search").style.visibility = "hidden";
+                userABWrapper.style.visibility = "hidden";
+            }  
+    });
+    }
+    else if(window.addEventListener) {
+        window.addEventListener('resize', function() {
+            if(window.innerWidth > 550) {
+                document.querySelector(".search").style.visibility = "visible";
+                userABWrapper.style.visibility = "visible";
+            } else {
+                document.querySelector(".search").style.visibility = "hidden";
+                userABWrapper.style.visibility = "hidden";
+            }
+            
+        }, true);
+    }
+    
     bindAllCountBtns(document.querySelectorAll(".countBtn"));
     bindvmBtn();
 })();

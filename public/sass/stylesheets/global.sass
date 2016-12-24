@@ -7,12 +7,24 @@ $other-grey    : #4e595d
 $border-color  : #c7cdcf
 $dark-grey     : #666
 $grey          : #888
+$min-width     : 550px
 
 =transition($property, $time)
 	-webkit-transition: $property $time ease-out 100ms
 	-moz-transition: $property $time ease-out 100ms
 	-o-transition: $property $time ease-out 100ms
 	transition: $property $time ease-out 100ms
+
+=transitionA($property, $time, $delay)
+	-webkit-transition: $property $time ease-out $delay
+	-moz-transition: $property $time ease-out $delay
+	-o-transition: $property $time ease-out $delay
+	transition: $property $time ease-out $delay
+
+=boxShadow($a, $b, $c)
+	-webkit-box-shadow: $a, $b, $c
+	-moz-box-shadow: $a, $b, $c
+	box-shadow: $a, $b, $c
 
 =bkdSize($val)
 	-ms-background-size: $val

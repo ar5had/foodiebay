@@ -49,7 +49,7 @@ button
 	+borderRadius(4px)
 	padding: 8px 15px
 	outline: none
-	+transition(all, 100ms)
+	+transitionA(all, 70ms, 0)
 	&:hover
 		border-color: rgba($white, .7)
 		background: rgba($white, .1)
@@ -114,3 +114,46 @@ button.login
 		width: 12px
 		margin-right: 5px
 		padding-bottom: 2px
+		
+.searchBtn, .userAccBtn
+	display: none
+	position: absolute
+	font-size: 30px !important
+	color: rgba($white, .8)
+	transform: translate(-50%, -50%)
+	display:none
+	cursor: pointer
+	top: 50%
+	right: 55px
+	+transitionA(all, 70ms, 0ms)
+	&:hover, &:active
+		color: $white
+
+.userAccBtn
+	right: 0		
+
+
+@media (max-width: $min-width)
+	header
+		.buttonWrapper
+			position: static
+			a 
+				visibility: hidden
+				position: absolute
+				left: 50%
+				top: 50%
+				transform: translate(-50%, 120%)
+				button
+					+boxShadow(0 3px 20px rgba(89,105,129,.3), 0 1px 2px rgba(0,0,0,.05), 0 0 0 1px rgba(89,105,129,.1))
+					background: rgba($white, 1)
+					width: 80vw
+					color: $other-grey
+					.divider
+						border-color: rgba($other-grey, .8)
+						font-weight: 900
+						font-size: 12px
+    					vertical-align: text-top
+	.searchBtn, .userAccBtn
+		display: block
+	
+	
