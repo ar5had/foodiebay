@@ -44,7 +44,7 @@ module.exports = function(app) {
         		               
         		               if (result.length > 0) {
         		                    restaurants.findOneAndUpdate({'venueId': id}, {$set: {"usersGoing": result, 'usersName': usersName}})
-        		                        .exec(function(err, res) {
+        		                        .exec(function(err) {
         		                           if (err) {
         		                               console.error("Some error happened while updating restaurant data:", err);
         		                           } else {
