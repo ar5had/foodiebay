@@ -7,6 +7,7 @@
     var userABWrapper = document.querySelector("header .buttonWrapper > a");
     var userAccBtn = document.querySelector('.userAccBtn');
     var count = 2;
+    var width = window.innerWidth;
     elem.addEventListener("click", function() {
         form.submit();    
     });
@@ -133,27 +134,35 @@
             
     });
     
+    // Note: On mobile, when keyboard draws up then there is vertical resize 
+    // so only add event to horizontal resizes
+    
     if(window.attachEvent) {
-    window.attachEvent('onresize', function() {
-            if(window.innerWidth > 550) {
-                document.querySelector(".search").style.visibility = "visible";
-                userABWrapper.style.visibility = "visible";
-            } else {
-                document.querySelector(".search").style.visibility = "hidden";
-                userABWrapper.style.visibility = "hidden";
-            }  
-    });
+        window.attachEvent('onresize', function() {
+            if(window.innerWidth !== width) {
+                if(window.innerWidth > 550) {
+                    document.querySelector(".search").style.visibility = "visible";
+                    userABWrapper.style.visibility = "visible";
+                } else {
+                    document.querySelector(".search").style.visibility = "hidden";
+                    userABWrapper.style.visibility = "hidden";
+                }  
+                width = window.innerWidth;
+            }
+        });
     }
     else if(window.addEventListener) {
         window.addEventListener('resize', function() {
-            if(window.innerWidth > 550) {
-                document.querySelector(".search").style.visibility = "visible";
-                userABWrapper.style.visibility = "visible";
-            } else {
-                document.querySelector(".search").style.visibility = "hidden";
-                userABWrapper.style.visibility = "hidden";
+            if (window.innerWidth !== width) {    
+                if(window.innerWidth > 550) {
+                    document.querySelector(".search").style.visibility = "visible";
+                    userABWrapper.style.visibility = "visible";
+                } else {
+                    document.querySelector(".search").style.visibility = "hidden";
+                    userABWrapper.style.visibility = "hidden";
+                }
+                width = window.innerWidth;
             }
-            
         }, true);
     }
     
