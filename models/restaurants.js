@@ -5,7 +5,8 @@ var Schema = mongoose.Schema;
 
 var Restaurant = new Schema({
     venueId : String,
-    usersGoing : Array
+    usersGoing : Array,
+    usersName  : Array
 });
 
 module.exports = mongoose.model('Restaurant', Restaurant);

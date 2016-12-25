@@ -16,13 +16,14 @@ module.exports = function(app) {
     		               if (response === null) {
     		                   var restaurant = new restaurants();
     		                   restaurant.venueId = id;
-    		                   restaurant.usersGoing = [id];
+    		                   restaurant.usersGoing = [req.user._id];
+    		                   restaurant.usersName = [req.user.name];
     		                   restaurant.save(function(err) {
                                     if (err)
                                         console.error("Some error happened while saving new restaurant:", err);
                                     else {
                                         console.log("new Restaurant marked successfully");
-                                         if (req.user_id === id) {
+                                         if (restaurant.usersGoing.indexOf(req.user._id) !== -1) {
                                             res.status(200).send("You are going");
                                         }
                                     }
@@ -30,16 +31,19 @@ module.exports = function(app) {
     		               } else {
     		                   console.log("Restaurant already existed!!");
     		                   var result = response.usersGoing;
+    		                   var usersName = response.usersName;
         		               var index = result.indexOf(id);
         		               if (index === -1) {
-        		                   result.push(id);
+        		                   result.push(req.user._id);
+        		                   usersName.push(req.user.name);
         		                   markingRestaurant = true;
         		               } else {
         		                   result = result.slice(0, index).concat(result.slice(index + 1)); 
+        		                   usersName = usersName.slice(0, index).concat(usersName.slice(index + 1));
         		               }
         		               
         		               if (result.length > 0) {
-        		                    restaurants.findOneAndUpdate({'venueId': id}, {$set: {"usersGoing": result}})
+        		                    restaurants.findOneAndUpdate({'venueId': id}, {$set: {"usersGoing": result, 'usersName': usersName}})
         		                        .exec(function(err, res) {
         		                           if (err) {
         		                               console.error("Some error happened while updating restaurant data:", err);
