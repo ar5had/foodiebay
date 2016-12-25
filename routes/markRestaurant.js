@@ -50,9 +50,9 @@ module.exports = function(app) {
         		                           } else {
         		                               console.log("Restaurant data successfully updated! For id:", id, "usersGoing", result);
         		                               if (markingRestaurant) {
-        		                                   res.status(200).send(result.length !== 1 ? ("You and "+ (result.length-1) + " others are going"): "You are going" );
+        		                                   res.status(200).send(result.length !== 1 ? ("You and "+ (result.length-1) + ((result.length-1 !== 1)?" others are going":" other is going")): "You are going" );
         		                               } else {
-        		                                   res.status(200).send(result.length + (result.length === 1 ? "user is going": "users are going"));
+        		                                   res.status(200).send(result.length + (result.length === 1 ? " user is going": " users are going"));
         		                               }
         		                           }
         		                        });
