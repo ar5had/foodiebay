@@ -212,7 +212,7 @@ var showResults = function(req, res) {
       last: last,
       restaurants: formattedData,
       userLoggedIn: req.isAuthenticated(),
-      userId: req.user._id
+      userId: req.user && req.user._id
     };
   } else {
     obj = {
