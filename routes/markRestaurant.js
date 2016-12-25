@@ -32,7 +32,7 @@ module.exports = function(app) {
     		                   console.log("Restaurant already existed!!");
     		                   var result = response.usersGoing;
     		                   var usersName = response.usersName;
-        		               var index = result.indexOf(id);
+        		               var index = result.indexOf(req.user._id);
         		               if (index === -1) {
         		                   result.push(req.user._id);
         		                   usersName.push(req.user.name);
