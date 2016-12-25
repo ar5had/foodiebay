@@ -16,7 +16,7 @@ module.exports = function(app) {
     		               if (response === null) {
     		                   var restaurant = new restaurants();
     		                   restaurant.venueId = id;
-    		                   restaurant.usersGoing = [req.user._id];
+    		                   restaurant.usersGoing = [req.user._id.toString()];
     		                   restaurant.usersName = [req.user.name];
     		                   restaurant.save(function(err) {
                                     if (err)
@@ -34,7 +34,7 @@ module.exports = function(app) {
     		                   var usersName = response.usersName;
         		               var index = result.indexOf(req.user._id);
         		               if (index === -1) {
-        		                   result.push(req.user._id);
+        		                   result.push(req.user._id.toString());
         		                   usersName.push(req.user.name);
         		                   markingRestaurant = true;
         		               } else {

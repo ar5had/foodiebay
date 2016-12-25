@@ -83,7 +83,7 @@ for result in results
 									-usersGoingData = "No one is going";	
 								-} else {
 									-var count = (restaurants.usersGoing[index].length);
-									-if(restaurants.usersGoing.indexOf(userId) !== -1){
+									-if(restaurants.usersGoing[index].indexOf(userId) !== -1){
 									-usersGoingData = (count === 1 ? " You are going" : ("You and " + ( (count-1 === 1) ? "1 other is going" : ( (count - 1) + "others are going") ) ) );
 									-} else{
 										-var count  = restaurants.usersGoing[index].length;
