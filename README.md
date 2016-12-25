@@ -1,13 +1,7 @@
-# nightlife-coordination-app
-A full stack JavaScript app for nightlife coordination.
+# foodiebay
+A full stack JavaScript app for finding restaurants in any city of the world and reviews from local experts. 
 
 
 Todos:
 
-~~ 1- Make design mobile friendly ~~
-
-~~ 2- Find a way to make req to results page with query when user logs in . Get rid of session variable. ~~
-
-~~ 3- Check returnTo var in case of login / logout ~~
-
-4- Verify whether restaurant counter is working with multiple users
+  * Verify whether restaurant counter is working with multiple users
