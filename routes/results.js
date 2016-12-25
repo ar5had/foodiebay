@@ -224,7 +224,7 @@ var showResults = function(req, res) {
   }
   
   if (req.query.type === "xhr") {
-    res.render('./components/results', {results: req.results, last: last, restaurants: formattedData, userLoggedIn: req.isAuthenticated(), userId: req.user._id });
+    res.render('./components/results', {results: req.results, last: last, restaurants: formattedData, userLoggedIn: req.isAuthenticated(), userId: req.user && req.user._id });
   } else {
     res.render('./pages/resultsPage', obj);
   }
