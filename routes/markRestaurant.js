@@ -41,7 +41,7 @@ module.exports = function(app) {
         		                   result = result.slice(0, index).concat(result.slice(index + 1)); 
         		                   usersName = usersName.slice(0, index).concat(usersName.slice(index + 1));
         		               }
-        		               
+        		               console.log
         		               if (result.length > 0) {
         		                    restaurants.findOneAndUpdate({'venueId': id}, {$set: {"usersGoing": result, 'usersName': usersName}})
         		                        .exec(function(err) {
@@ -50,7 +50,7 @@ module.exports = function(app) {
         		                           } else {
         		                               console.log("Restaurant data successfully updated! For id:", id, "usersGoing", result);
         		                               if (markingRestaurant) {
-        		                                   res.status(200).send(result.length !== 1 ? ("You and "+ result.length-1 + "others are going"): "You are going" );
+        		                                   res.status(200).send(result.length !== 1 ? ("You and "+ (result.length-1) + " others are going"): "You are going" );
         		                               } else {
         		                                   res.status(200).send(result.length + (result.length === 1 ? "user is going": "users are going"));
         		                               }
