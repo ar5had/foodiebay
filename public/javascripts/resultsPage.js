@@ -111,10 +111,19 @@
     });
     
     searchWrapper.addEventListener('click', function(e) {
-        if (!e) var e = window.event
+        if (!e) var e = window.event;
     		e.cancelBubble = true;
     	if (e.stopPropagation) 
-    		e.stopPropagation()
+    		e.stopPropagation();
+    });
+    
+    // fallback for mobiles
+    
+    document.getElementById('searchBar').addEventListener('click', function(e) {
+        if (!e) var e = window.event;
+    		e.cancelBubble = true;
+    	if (e.stopPropagation) 
+    		e.stopPropagation();
     });
     
     window.addEventListener("click", function() {
