@@ -211,7 +211,8 @@ var showResults = function(req, res) {
       results: req.results,
       last: last,
       restaurants: formattedData,
-      userLoggedIn: req.isAuthenticated()
+      userLoggedIn: req.isAuthenticated(),
+      userId: req.user._id
     };
   } else {
     obj = {
@@ -223,7 +224,7 @@ var showResults = function(req, res) {
   }
   
   if (req.query.type === "xhr") {
-    res.render('./components/results', {results: req.results, last: last, restaurants: formattedData, userLoggedIn: req.isAuthenticated() });
+    res.render('./components/results', {results: req.results, last: last, restaurants: formattedData, userLoggedIn: req.isAuthenticated(), userId: req.user._id });
   } else {
     res.render('./pages/resultsPage', obj);
   }

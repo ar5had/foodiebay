@@ -80,10 +80,15 @@ for result in results
 								-var index = restaurants.ids.indexOf(result.id);
 								-var usersGoingData = "null";
 								-if (index === -1) {
-								-usersGoingData = "No one is going";	
+									-usersGoingData = "No one is going";	
 								-} else {
-								-var count = (restaurants.usersGoing[index].length);
-								-usersGoingData = (count === 1 ? " You are going" : ("You and " + ( (count-1 === 1) ? "1 other is going" : ( (count - 1) + "others are going") ) ) );
+									-var count = (restaurants.usersGoing[index].length);
+									-if(result.id === userId){
+									-usersGoingData = (count === 1 ? " You are going" : ("You and " + ( (count-1 === 1) ? "1 other is going" : ( (count - 1) + "others are going") ) ) );
+									-} else{
+										-var count  = restaurants.usersGoing[index].length;
+										-usersGoingData = count > 1 ? (count + " users are going") : "1 user is going";
+									-}
 								-} 
 								span  #{usersGoingData}
 					else
@@ -93,10 +98,10 @@ for result in results
 								-var index = restaurants.ids.indexOf(result.id);
 								-var usersGoingData = "null";
 								-if (index === -1) {
-								-usersGoingData = "No one is going";	
+									-usersGoingData = "No one is going";	
 								-} else {
-								-var count  = restaurants.usersGoing[index].length;
-								-usersGoingData = count > 1 ? (count + " users are going") : "1 user is going";
+									-var count  = restaurants.usersGoing[index].length;
+									-usersGoingData = count > 1 ? (count + " users are going") : "1 user is going";
 								-} 
 								span  #{usersGoingData}
 							

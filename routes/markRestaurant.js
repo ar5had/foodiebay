@@ -3,6 +3,9 @@ var restaurants = require("../models/restaurants.js");
 module.exports = function(app) {
     app.route('/markRestaurant')
     		.post(function (req, res) {
+    		    // this var tells whether user click on "Going" button
+    		    // means user is going or withdrawing the previous plan
+    		    var markingRestaurant = false;
     		    var id = req.query.id;
     		    restaurants.findOne({'venueId': id})
     		        .exec(function(err, response) {
@@ -19,10 +22,8 @@ module.exports = function(app) {
                                         console.error("Some error happened while saving new restaurant:", err);
                                     else {
                                         console.log("new Restaurant marked successfully");
-                                         if (req.isAuthenticated()) {
+                                         if (req.user_id === id) {
                                             res.status(200).send("You are going");
-                                        } else {
-            		                        res.status(200).send("1 user is going");
                                         }
                                     }
                                 });
@@ -32,6 +33,7 @@ module.exports = function(app) {
         		               var index = result.indexOf(id);
         		               if (index === -1) {
         		                   result.push(id);
+        		                   markingRestaurant = true;
         		               } else {
         		                   result = result.slice(0, index).concat(result.slice(index + 1)); 
         		               }
@@ -43,7 +45,7 @@ module.exports = function(app) {
         		                               console.error("Some error happened while updating restaurant data:", err);
         		                           } else {
         		                               console.log("Restaurant data successfully updated! For id:", id, "usersGoing", result);
-        		                               if (req.isAuthenticated()) {
+        		                               if (markingRestaurant) {
         		                                   res.status(200).send(result.length !== 1 ? ("You and "+ result.length-1 + "others are going"): "You are going" );
         		                               } else {
         		                                   res.status(200).send(result.length + (result.length === 1 ? "user is going": "users are going"));
